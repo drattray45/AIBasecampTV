@@ -27,6 +27,10 @@ const NAV_LINKS = [
   { href: "#watch", label: "Watch on YouTube" },
 ];
 
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
 function Header({ onGet }) {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -364,6 +368,7 @@ function LandingPage() {
               <a key={l} href="#" className="site-footer__link">{l}</a>
             ))}
           </nav>
+          <FooterNewsletter />
         </div>
       </footer>
 
@@ -373,19 +378,28 @@ function LandingPage() {
 }
 
 function StarterKitModal({ done, setDone, onClose }) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // TODO: wire to email platform (Kit/ConvertKit/etc.) — captures Starter Kit + newsletter list
+    setDone(true);
+  };
+
   return (
     <div className="modal-overlay" onClick={onClose} role="presentation">
       <div className="modal-panel" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="starter-kit-title">
         <Card tone="paper" elevated>
           {!done ? (
-            <form className="modal-panel__form" onSubmit={(e) => { e.preventDefault(); setDone(true); }}>
+            <form className="modal-panel__form" onSubmit={handleSubmit}>
               <div className="modal-panel__header">
                 <img src={SCOUT} alt="Scout" className="modal-panel__scout" />
                 <Badge tone="free">Free</Badge>
               </div>
               <h3 id="starter-kit-title" className="modal-panel__title">Your first 5 AI wins, in the right{"\u00A0"}order.</h3>
               <p className="modal-panel__body">Tell us where to send the Starter Kit. No spam, and no sign-up needed to look around.</p>
-              <Input label="Your email" type="email" required placeholder="you@example.com" helper="We'll send your kit here." />
+              <div className="modal-panel__field">
+                <Input label="Your email" type="email" required placeholder="you@example.com" />
+                <p className="reassurance-line">You'll also get a short note from Scout most weeks. Unsubscribe anytime.</p>
+              </div>
               <Button variant="primary" size="lg" type="submit" fullWidth>Get my free Starter Kit</Button>
             </form>
           ) : (
@@ -399,6 +413,82 @@ function StarterKitModal({ done, setDone, onClose }) {
         </Card>
       </div>
     </div>
+  );
+}
+
+function FooterNewsletter() {
+  const [email, setEmail] = React.useState("");
+  const [done, setDone] = React.useState(false);
+  const [error, setError] = React.useState("");
+  const inputId = "footer-newsletter-email";
+  const statusId = "footer-newsletter-status";
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!isValidEmail(email)) {
+      setError("That address doesn't look right. Mind checking it?");
+      return;
+    }
+    setError("");
+    // TODO: wire to email platform (Kit/ConvertKit/etc.) — footer newsletter list only
+    setDone(true);
+  };
+
+  return (
+    <section className="site-footer-newsletter" aria-labelledby="footer-newsletter-heading">
+      <h2 id="footer-newsletter-heading" className="site-footer-newsletter__title">
+        Not ready to start? Stay on the trail.
+      </h2>
+      <p className="site-footer-newsletter__sub">
+        A short note from Scout most weeks. No rush, no pressure, and nothing to install.
+      </p>
+
+      {done ? (
+        <p id={statusId} className="site-footer-newsletter__success" role="status" aria-live="polite">
+          Nice. Scout will be in touch.
+        </p>
+      ) : (
+        <form className="site-footer-newsletter__form" onSubmit={handleSubmit} noValidate>
+          <div className="site-footer-newsletter__row">
+            <label htmlFor={inputId} className="visually-hidden">Email for Scout's notes</label>
+            <input
+              id={inputId}
+              className="site-footer-newsletter__input"
+              type="email"
+              name="email"
+              autoComplete="email"
+              inputMode="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                if (error) setError("");
+              }}
+              aria-invalid={error ? "true" : undefined}
+              aria-describedby={error ? statusId : "footer-newsletter-fine"}
+            />
+            <Button
+              variant="primary"
+              size="md"
+              type="submit"
+              className="site-footer-newsletter__submit"
+              style={{ boxShadow: "none" }}
+            >
+              Send me Scout's notes
+            </Button>
+          </div>
+          {error ? (
+            <p id={statusId} className="site-footer-newsletter__error" role="alert" aria-live="polite">
+              {error}
+            </p>
+          ) : (
+            <p id="footer-newsletter-fine" className="reassurance-line site-footer-newsletter__fine">
+              Unsubscribe anytime.
+            </p>
+          )}
+        </form>
+      )}
+    </section>
   );
 }
 

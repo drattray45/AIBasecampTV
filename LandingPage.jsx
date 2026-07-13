@@ -253,14 +253,50 @@ function Hero({ onGet }) {
 }
 
 function ToolsBar() {
+  const sectionRef = React.useRef(null);
+  const [revealed, setRevealed] = React.useState(false);
+  const tools = ["ChatGPT", "Claude", "Canva", "Perplexity", "Grammarly"];
+
+  React.useEffect(() => {
+    const node = sectionRef.current;
+    if (!node || revealed || typeof IntersectionObserver === "undefined") return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [revealed]);
+
   return (
-    <section className="tools-bar">
+    <section
+      ref={sectionRef}
+      className={`tools-bar${revealed ? " is-revealed" : ""}`}
+    >
       <div className="container tools-bar__inner">
         <div className="tools-bar__label">The tools you'll actually use (all free to start)</div>
-        <div className="tools-bar__chips">
-          {["ChatGPT", "Claude", "Canva", "Perplexity", "Grammarly"].map((t) => (
-            <ToolChip key={t}>{t}</ToolChip>
-          ))}
+        <div className="tools-bar__stage">
+          <div className="tools-bar__beam" aria-hidden="true">
+            <span className="tools-bar__beam-tint" />
+            <span className="tools-bar__beam-lift" />
+          </div>
+          <div className="tools-bar__chips">
+            {tools.map((t, index) => (
+              <ToolChip
+                key={t}
+                className="tools-bar__chip"
+                style={{ "--chip-index": index }}
+              >
+                {t}
+              </ToolChip>
+            ))}
+          </div>
         </div>
       </div>
     </section>

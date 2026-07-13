@@ -74,6 +74,14 @@
   --accent-press:      var(--amber-600);
   --accent-quiet:      #fbf0d2;          /* amber tint wash, rare */
 
+  /* Tools bar headlamp sweep — warm light on paper (tint + brightness lift, not opaque amber) */
+  --tools-beam-tint-soft: color-mix(in srgb, var(--accent-quiet) 38%, transparent);
+  --tools-beam-tint-mid:  color-mix(in srgb, var(--amber-glow) 7%, transparent);
+  --tools-beam-lift-soft: color-mix(in srgb, var(--paper-50) 65%, transparent);
+  --tools-beam-lift-core: color-mix(in srgb, white 62%, transparent);
+  --tools-pill-shadow-lit: 8px 4px 0 color-mix(in srgb, var(--brown-700) 12%, transparent),
+                           6px 10px 28px color-mix(in srgb, var(--brown-700) 20%, transparent);
+
   --highlight-word:    var(--amber-600); /* the single highlighted word, on paper */
 
   --focus-ring:        var(--brown-500);

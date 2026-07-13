@@ -60,6 +60,14 @@
   --dur-lamp-breathe:     6s;
   --dur-nav-scroll:       200ms;
   --scroll-header-threshold: 2.5rem;
+  --dur-tools-label:      var(--dur-base);
+  --dur-tools-label-lead: var(--dur-fast);
+  --dur-tools-sweep:      1.5s;
+  --dur-tools-pill:       400ms;
+  --dur-tools-beam-fade:  var(--dur-base);
+  --tools-pill-offset:    var(--space-2);
+  --tools-chip-count:     5;
+  --tools-beam-width:     82%;
   --ease-lamp-on:         cubic-bezier(0.22, 0.61, 0.36, 1);
   --lamp-flare-opacity:   1;
   --lamp-flare-scale:     1.15;

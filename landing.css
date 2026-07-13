@@ -662,7 +662,7 @@ a:hover {
   padding-block: var(--space-1);
 }
 
-/* Composite headlamp — tint + brightness lift move together left to right */
+/* Headlamp sweep — warm amber base layer (effect lives in the pills lighting up) */
 .tools-bar__beam {
   position: absolute;
   top: -20%;
@@ -674,15 +674,10 @@ a:hover {
   will-change: left, opacity;
 }
 
-.tools-bar__beam-tint,
-.tools-bar__beam-lift {
+.tools-bar__beam-tint {
   position: absolute;
   inset: 0;
   border-radius: var(--radius-pill);
-}
-
-/* Layer 1 — wide soft warm tint (low contrast on cream; base only) */
-.tools-bar__beam-tint {
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -699,21 +694,26 @@ a:hover {
   opacity: 0.9;
 }
 
-/* Layer 2 — brightness lift reads as light on paper, not yellow smear */
-.tools-bar__beam-lift {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent 20%,
-    var(--tools-beam-lift-soft) 36%,
-    var(--tools-beam-lift-core) 50%,
-    var(--tools-beam-lift-soft) 64%,
-    transparent 80%,
-    transparent 100%
-  );
-  mix-blend-mode: screen;
-  filter: blur(4px);
-  opacity: 0.62;
+.tool-pill__logo {
+  display: block;
+  width: var(--tool-logo-size);
+  height: var(--tool-logo-size);
+  flex-shrink: 0;
+  background-color: var(--tool-logo-ink);
+  -webkit-mask-image: var(--logo-mask);
+  mask-image: var(--logo-mask);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Canva ships as white type on a teal disk — luminance picks up the letterforms */
+.tool-pill__logo--luminance {
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
 }
 
 .tools-bar__chips {
@@ -726,27 +726,29 @@ a:hover {
 }
 
 .tools-bar__chip {
-  opacity: 0;
-  transform: translateY(var(--tools-pill-offset));
+  opacity: var(--tools-pill-dim);
   box-shadow: none;
-  will-change: opacity, transform, box-shadow;
+  will-change: opacity, box-shadow;
 }
 
 .tools-bar.is-revealed .tools-bar__label {
-  animation: tools-label-in var(--dur-tools-label) var(--ease-calm) forwards;
+  animation: tools-label-in var(--dur-tools-label) var(--ease-calm) var(--dur-tools-trigger-pause) forwards;
 }
 
 .tools-bar.is-revealed .tools-bar__beam {
   animation:
-    tools-beam-sweep var(--dur-tools-sweep) ease-in-out var(--dur-tools-label-lead) forwards,
+    tools-beam-sweep var(--dur-tools-sweep) ease-in-out
+      calc(var(--dur-tools-trigger-pause) + var(--dur-tools-label-lead)) forwards,
     tools-beam-out var(--dur-tools-beam-fade) var(--ease-calm)
-      calc(var(--dur-tools-label-lead) + var(--dur-tools-sweep)) forwards;
+      calc(var(--dur-tools-trigger-pause) + var(--dur-tools-label-lead) + var(--dur-tools-sweep)) forwards;
 }
 
 .tools-bar.is-revealed .tools-bar__chip {
   --tools-stagger-step: calc(var(--dur-tools-sweep) / (var(--tools-chip-count) - 1));
   animation: tools-pill-in var(--dur-tools-pill) ease-out forwards;
-  animation-delay: calc(var(--dur-tools-label-lead) + var(--chip-index) * var(--tools-stagger-step));
+  animation-delay: calc(
+    var(--dur-tools-trigger-pause) + var(--dur-tools-label-lead) + var(--chip-index) * var(--tools-stagger-step)
+  );
 }
 
 @keyframes tools-label-in {
@@ -783,20 +785,17 @@ a:hover {
 
 @keyframes tools-pill-in {
   0% {
-    opacity: 0;
-    transform: translateY(var(--tools-pill-offset));
+    opacity: var(--tools-pill-dim);
     box-shadow: none;
   }
 
   45% {
     opacity: 1;
-    transform: translateY(0);
     box-shadow: var(--tools-pill-shadow-lit);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(0);
     box-shadow: none;
   }
 }
@@ -805,7 +804,6 @@ a:hover {
   .tools-bar__label,
   .tools-bar__chip {
     opacity: 1;
-    transform: none;
     box-shadow: none;
     animation: none;
   }

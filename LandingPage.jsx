@@ -252,13 +252,19 @@ function Hero({ onGet }) {
   );
 }
 
+const TOOLS = [
+  { name: "ChatGPT", logo: "/images/chatgpt1.webp", logoSize: "var(--tool-logo-size-chatgpt)" },
+  { name: "Claude", logo: "/images/Claude.webp" },
+  { name: "Canva", logo: "/images/canva2.webp" },
+  { name: "Perplexity", logo: "/images/perplexity.webp" },
+];
+
 function ToolsBar() {
-  const sectionRef = React.useRef(null);
+  const stageRef = React.useRef(null);
   const [revealed, setRevealed] = React.useState(false);
-  const tools = ["ChatGPT", "Claude", "Canva", "Perplexity", "Grammarly"];
 
   React.useEffect(() => {
-    const node = sectionRef.current;
+    const node = stageRef.current;
     if (!node || revealed || typeof IntersectionObserver === "undefined") return undefined;
 
     const observer = new IntersectionObserver(
@@ -268,32 +274,39 @@ function ToolsBar() {
           observer.disconnect();
         }
       },
-      { threshold: 0.35 }
+      {
+        rootMargin: "0px 0px -40% 0px",
+        threshold: 0.5,
+      }
     );
     observer.observe(node);
     return () => observer.disconnect();
   }, [revealed]);
 
   return (
-    <section
-      ref={sectionRef}
-      className={`tools-bar${revealed ? " is-revealed" : ""}`}
-    >
+    <section className={`tools-bar${revealed ? " is-revealed" : ""}`}>
       <div className="container tools-bar__inner">
         <div className="tools-bar__label">The tools you'll actually use (all free to start)</div>
-        <div className="tools-bar__stage">
+        <div className="tools-bar__stage" ref={stageRef}>
           <div className="tools-bar__beam" aria-hidden="true">
             <span className="tools-bar__beam-tint" />
-            <span className="tools-bar__beam-lift" />
           </div>
           <div className="tools-bar__chips">
-            {tools.map((t, index) => (
+            {TOOLS.map((tool, index) => (
               <ToolChip
-                key={t}
+                key={tool.name}
+                logoSrc={tool.logo}
+                logoMaskMode={tool.logoMaskMode}
                 className="tools-bar__chip"
-                style={{ "--chip-index": index }}
+                style={{
+                  "--chip-index": index,
+                  fontSize: "var(--tool-pill-font-size)",
+                  padding: "var(--tool-pill-pad-y) var(--tool-pill-pad-x)",
+                  gap: "var(--tool-pill-gap)",
+                  ...(tool.logoSize ? { "--tool-logo-size": tool.logoSize } : {}),
+                }}
               >
-                {t}
+                {tool.name}
               </ToolChip>
             ))}
           </div>

@@ -2,16 +2,17 @@ import React from "react";
 
 /**
  * ToolChip — a quiet, honest name-tag for a familiar tool
- * (ChatGPT, Claude, Canva…). Used in the "tools you'll actually use" bar
- * instead of fabricated customer logos. Deliberately plain: no fake logo.
+ * (ChatGPT, Claude, Canva…). Used in the "tools you'll actually use" bar.
+ * Optional `logoSrc` renders a monochrome masked mark beside the label.
  */
-export function ToolChip({ children, style = {}, ...rest }) {
+export function ToolChip({ children, logoSrc, logoMaskMode = "alpha", className = "", style = {}, ...rest }) {
   return (
     <span
+      className={["tool-chip", className].filter(Boolean).join(" ")}
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: "8px",
+        gap: "var(--space-2)",
         padding: "9px 18px",
         fontFamily: "var(--font-body)",
         fontWeight: "var(--fw-semibold)",
@@ -24,7 +25,17 @@ export function ToolChip({ children, style = {}, ...rest }) {
       }}
       {...rest}
     >
-      {children}
+      {logoSrc && (
+        <span
+          className={[
+            "tool-pill__logo",
+            logoMaskMode === "luminance" && "tool-pill__logo--luminance",
+          ].filter(Boolean).join(" ")}
+          style={{ "--logo-mask": `url(${logoSrc})` }}
+          aria-hidden="true"
+        />
+      )}
+      <span className="tool-pill__label">{children}</span>
     </span>
   );
 }

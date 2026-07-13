@@ -1,11 +1,24 @@
 /* AIBasecamp.TV — Landing page UI kit.
-   Composes the design-system components. Reads them from the bundle namespace.
-   Beacon-mode hero into warm-paper body; one repeated CTA with a calm
-   email-capture flow. */
-const NS = window.AIBasecampTVDesignSystem_944591;
-const { Button, ToolChip, Badge, Input, Textarea, Card, Callout, StepCard, FeatureCard, PricingCard, FAQItem, Logo } = NS;
-const SCOUT = "public/images/scout-on-trans-bk.png";
-const SCOUT_NAV = "public/images/scout-circle-trans.png";
+   Composes the design-system components. Beacon-mode hero into warm-paper body;
+   one repeated CTA with a calm email-capture flow. */
+import React from "react";
+import {
+  Button,
+  ToolChip,
+  Badge,
+  Input,
+  Textarea,
+  Card,
+  Callout,
+  StepCard,
+  FeatureCard,
+  PricingCard,
+  FAQItem,
+  Logo,
+} from "./_ds_bundle.js";
+
+const SCOUT = "/images/scout-on-trans-bk.png";
+const SCOUT_NAV = "/images/scout-circle-trans.png";
 const MOBILE_NAV_ID = "site-mobile-nav";
 
 const NAV_LINKS = [
@@ -387,4 +400,4 @@ function StarterKitModal({ done, setDone, onClose }) {
   );
 }
 
-window.LandingPage = LandingPage;
+export default LandingPage;

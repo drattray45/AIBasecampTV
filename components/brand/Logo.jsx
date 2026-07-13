@@ -10,7 +10,7 @@ import React from "react";
 export function Logo({
   size = "md",
   showMark = true,
-  markSrc = "public/images/scout-on-trans-bk.png",
+  markSrc = "/images/scout-on-trans-bk.png",
   markAvatar = false,
   markCircular = false,
   markScale = 1,

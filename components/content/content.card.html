@@ -1,0 +1,49 @@
+<!-- @dsCard group="Components" viewport="700x560" name="Content — Cards, Steps, Pricing, FAQ" subtitle="Warm surfaces & landing compositions" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin:0; font-family:var(--font-body); background:var(--surface-page); color:var(--text-body); padding:28px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:640px; }
+  .lbl { font-size:var(--text-xs); letter-spacing:var(--tracking-wide); text-transform:uppercase; color:var(--text-muted); margin:22px 0 10px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const { Card, Callout, StepCard, FeatureCard, PricingCard, FAQItem } = window.AIBasecampTVDesignSystem_944591;
+  function Demo() {
+    return (
+      <div style={{maxWidth:640}}>
+        <div className="lbl">Steps</div>
+        <div className="grid">
+          <StepCard number="1" title="Start with what you know">Your first task uses a topic you're already good at, so you can tell the answer's right.</StepCard>
+          <StepCard number="2" title="One small win a day">Five real tasks, in the order that doesn't lose people. No rush.</StepCard>
+        </div>
+        <div className="lbl">Callouts</div>
+        <Callout tone="reassure" title="Nice — you just did that">Real "you did it," never fake cheerleading.</Callout>
+        <div style={{height:12}} />
+        <Callout tone="honest" title="Honestly reserved">Real before/afters drop in only once founding members share them. We won't fake it.</Callout>
+        <div className="lbl">Pricing ladder</div>
+        <div className="grid" style={{gridTemplateColumns:"1fr 1fr"}}>
+          <PricingCard amount="Free" name="Starter Kit" blurb="Your first 5 AI wins, in the right order." ctaLabel="Get my free Starter Kit" featured />
+          <PricingCard amount="$99" name="Founding course" blurb="The full Basecamp Path, founding price." ctaLabel="Join the founding group" />
+        </div>
+        <div className="lbl">FAQ</div>
+        <Card tone="paper" style={{padding:"4px 22px"}}>
+          <FAQItem question="Am I too far behind to start?" defaultOpen>No. You weren't behind — you were handed AI in the wrong order. We start with one thing you already know, today.</FAQItem>
+          <FAQItem question="Do I need to be technical?">If you can use email, you can do this. No coding, no setup, nothing to install.</FAQItem>
+        </Card>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

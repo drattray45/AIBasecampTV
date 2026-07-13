@@ -1,0 +1,79 @@
+/* ============================================================
+   AIBasecamp.TV — TYPOGRAPHY TOKENS
+   Large, legible type is a brand VALUE. The reader is ~49.
+   Generous line-height, short measures, strong contrast.
+   Source Serif 4 = headline serif. Hanken Grotesk = body.
+   ============================================================ */
+
+:root {
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body:    "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Weights */
+  --fw-regular: 400; /* @kind other */
+  --fw-medium:  500; /* @kind other */
+  --fw-semibold: 600; /* @kind other */
+  --fw-bold:    700; /* @kind other */
+  --fw-black:   900; /* @kind other */
+
+  /* ---- Type scale (generous; nothing tiny) -----------------
+     Body baseline is 18px — never below 16px anywhere. */
+  --text-2xs:  0.8125rem; /* 13px — legal / fine print ONLY */
+  --text-xs:   0.9375rem; /* 15px — captions, eyebrows */
+  --text-sm:   1rem;      /* 16px — small UI text (floor) */
+  --text-base: 1.125rem;  /* 18px — body default */
+  --text-lg:   1.25rem;   /* 20px — lead paragraph */
+  --text-xl:   1.5rem;    /* 24px */
+  --text-2xl:  1.875rem;  /* 30px — card/section heading */
+  --text-3xl:  2.5rem;    /* 40px */
+  --text-4xl:  3.25rem;   /* 52px */
+  --text-5xl:  4.25rem;   /* 68px — hero */
+
+  /* Line heights — generous, calm */
+  --leading-tight:   1.12;  /* display headlines */
+  --leading-snug:    1.28;  /* subheads */
+  --leading-normal:  1.6;   /* body */
+  --leading-relaxed: 1.75;  /* long reading passages */
+
+  /* Letter-spacing */
+  --tracking-tight:  -0.02em; /* large display headlines */
+  --tracking-normal: 0;
+  --tracking-wide:   0.08em;  /* eyebrows / small caps */
+
+  /* Measure (line length) — short, per brand */
+  --measure-heading: 24ch;
+  --measure-hero-title: 20ch;
+  --measure-section-title: 38ch;
+  --measure-section-title-center: 36ch;
+  --measure-body:    46ch;
+
+  /* Semantic roles */
+  --type-hero:    var(--fw-black) var(--text-5xl)/var(--leading-tight) var(--font-display);
+  --type-h1:      var(--fw-bold)  var(--text-4xl)/var(--leading-tight) var(--font-display);
+  --type-h2:      var(--fw-bold)  var(--text-3xl)/var(--leading-snug) var(--font-display);
+  --type-h3:      var(--fw-semibold) var(--text-2xl)/var(--leading-snug) var(--font-display);
+  --type-lead:    var(--fw-regular) var(--text-lg)/var(--leading-normal) var(--font-body);
+  --type-body:    var(--fw-regular) var(--text-base)/var(--leading-normal) var(--font-body);
+  --type-eyebrow: var(--fw-semibold) var(--text-xs)/1.2 var(--font-body);
+
+  /* Headline OpenType — standard letterforms, no swash/dlig alternates */
+  --headline-font-features: "dlig" 0, "swsh" 0, "calt" 0;
+  --headline-font-variant-ligatures: no-discretionary-ligatures;
+}
+
+/* Headlines: disable decorative alternates; balance lines across the rag */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-feature-settings: var(--headline-font-features);
+  font-variant-ligatures: var(--headline-font-variant-ligatures);
+  text-wrap: balance;
+}
+
+/* Body copy: avoid single-word last lines (orphans) */
+p {
+  text-wrap: pretty;
+}

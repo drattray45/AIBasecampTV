@@ -1,0 +1,128 @@
+/* ============================================================
+   AIBasecamp.TV — COLOR TOKENS
+   Two palette modes. Beacon (marketing, mountain-night) and
+   Warm-Paper (learning surfaces, daylight). ONE amber-yellow,
+   reserved for the headlamp glow, a single highlight word, and CTAs.
+   ============================================================ */
+
+:root {
+  /* ---- Base ramps ------------------------------------------ */
+
+  /* Beacon — deep teal-slate mountain-night (campfire-dark, NOT techy) */
+  --teal-950: #07181d;   /* deepest corner / mountain shadow */
+  --teal-900: #0b2027;
+  --teal-850: #0f2a31;
+  --teal-800: #123b45;   /* mid ground */
+  --teal-700: #1a474d;
+  --teal-600: #1f5054;   /* lit air near the beam */
+
+  /* Warm paper — off-white daylight */
+  --paper-50:  #faf6ef;  /* page */
+  --paper-100: #f4ede1;  /* raised surface / card */
+  --paper-200: #ece2d3;  /* hairline wash */
+  --paper-300: #ddcfba;  /* borders on paper */
+
+  /* Warm ink — never pure black, never cold grey */
+  --ink-900: #241d17;    /* headings on paper */
+  --ink-700: #4a3f34;    /* body on paper */
+  --ink-500: #6f6151;    /* muted on paper */
+  --ink-300: #a2917d;    /* faint / captions */
+
+  /* Scout brown — the character, warm and earthy */
+  --brown-700: #3c2f22;
+  --brown-600: #5b3f29;  /* Scout's fur mid */
+  --brown-500: #7a5334;
+  --brown-300: #b98a5e;
+
+  /* Amber — the ONE reserved accent (headlamp / highlight word / CTA) */
+  --amber-glow: #ffd24a; /* the headlamp core + glow */
+  --amber-500:  #f2b93b; /* CTA fill */
+  --amber-600:  #d99e28; /* CTA pressed */
+
+  /* Warm on-dark text (for beacon surfaces) */
+  --mist-50:  #f3f0ea;   /* headline on beacon */
+  --mist-200: #cfe0e2;   /* body on beacon */
+  --mist-400: #8fa8ab;   /* muted on beacon */
+
+  /* Semantic — quiet, warm, never alarmist */
+  --leaf-600:  #4f7a52;  /* gentle success ("nice, you did that") */
+  --leaf-100:  #e3ede0;
+  --clay-600:  #b5623f;  /* gentle caution — warm, not red-alert */
+  --clay-100:  #f3e2d7;
+
+  /* ============================================================
+     SEMANTIC ALIASES — default is WARM-PAPER (learning surfaces).
+     Beacon overrides live in .beacon below.
+     ============================================================ */
+  --surface-page:      var(--paper-50);
+  --surface-card:      #ffffff;
+  --surface-raised:    var(--paper-100);
+  --surface-sunken:    var(--paper-200);
+
+  --text-heading:      var(--ink-900);
+  --text-body:         var(--ink-700);
+  --text-muted:        var(--ink-500);
+  --text-faint:        var(--ink-300);
+  --text-on-accent:    var(--ink-900);   /* dark ink reads on amber */
+
+  --border-hairline:   var(--paper-200);
+  --border-default:    var(--paper-300);
+  --border-strong:     var(--ink-300);
+
+  --accent:            var(--amber-500); /* CTA fill */
+  --accent-hover:      var(--amber-glow);
+  --accent-press:      var(--amber-600);
+  --accent-quiet:      #fbf0d2;          /* amber tint wash, rare */
+
+  --highlight-word:    var(--amber-600); /* the single highlighted word, on paper */
+
+  --focus-ring:        var(--brown-500);
+
+  --link:              var(--brown-600);
+  --link-hover:        var(--brown-500);
+
+  /* Overlays & marketing surfaces */
+  --overlay-backdrop:  color-mix(in srgb, var(--teal-950) 55%, transparent);
+  --header-backdrop:   color-mix(in srgb, var(--teal-950) 82%, transparent);
+  --nav-overlay-divider: rgba(255, 255, 255, 0.1);
+  --beacon-banner-opacity: 0.48;
+}
+
+/* ============================================================
+   BEACON MODE — apply to any marketing / mountain-night surface.
+   Add class="beacon" (or data-mode="beacon") to a container.
+   ============================================================ */
+.beacon,
+[data-mode="beacon"] {
+  --surface-page:    var(--teal-950);
+  --surface-card:    var(--teal-850);
+  --surface-raised:  var(--teal-800);
+  --surface-sunken:  var(--teal-900);
+
+  --text-heading:    var(--mist-50);
+  --text-body:       var(--mist-200);
+  --text-muted:      var(--mist-400);
+  --text-faint:      #6b8386;
+  --text-on-accent:  var(--ink-900);
+
+  --border-hairline: rgba(255,255,255,.07);
+  --border-default:  rgba(255,255,255,.12);
+  --border-strong:   rgba(255,255,255,.22);
+
+  --accent:          var(--amber-500);
+  --accent-hover:    var(--amber-glow);
+  --accent-press:    var(--amber-600);
+  --accent-quiet:    rgba(255,210,74,.10);
+
+  --highlight-word:  var(--amber-glow); /* on beacon the highlight glows */
+
+  --focus-ring:      var(--amber-glow);
+
+  --link:            var(--amber-glow);
+  --link-hover:      #ffe08a;
+
+  /* the actual mountain-night backdrop */
+  --beacon-gradient: radial-gradient(120% 90% at 78% 42%, var(--teal-700) 0%, var(--teal-850) 42%, var(--teal-950) 100%);
+  /* the headlamp beam glow — for placing behind Scout */
+  --headlamp-beam: radial-gradient(closest-side, rgba(255,210,74,.28), rgba(255,210,74,0) 70%); /* @kind other */
+}

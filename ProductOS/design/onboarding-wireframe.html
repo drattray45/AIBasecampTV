@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onboarding Wireframe — AIBasecamp.TV</title>
+<style>
+  :root {
+    --bg: #f5f5f4; --panel: #ffffff; --border: #d6d3d1; --ink: #1c1917;
+    --muted: #78716c; --accent: #44403c; --device-bg: #fafaf9;
+    --wire-fill: #e7e5e4; --wire-line: #a8a29e; --wire-text: #57534e;
+    --note-bg: #fef3c7; --note-border: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.5; }
+  .app-header { padding: 14px 24px; border-bottom: 1px solid var(--border); background: var(--panel); }
+  .app-header h1 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+  .app-header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .layout { display: grid; grid-template-columns: 240px 1fr 320px; min-height: calc(100vh - 56px); }
+  .sidebar { background: var(--panel); border-right: 1px solid var(--border); padding: 16px; overflow-y: auto; }
+  .sidebar h2, .annotation h2 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 12px; }
+  .screen-list { list-style: none; padding: 0; margin: 0; }
+  .screen-list li { padding: 10px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 10px; border: 1px solid transparent; margin-bottom: 2px; }
+  .screen-list li:hover { background: var(--bg); }
+  .screen-list li.active { background: var(--bg); border-color: var(--border); font-weight: 500; }
+  .screen-list .num { display: inline-flex; width: 22px; height: 22px; background: var(--border); color: var(--ink); border-radius: 50%; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .screen-list li.active .num { background: var(--ink); color: white; }
+  .screen-list .star { color: #b8860b; font-weight: 700; }
+  .canvas { padding: 40px; display: flex; align-items: flex-start; justify-content: center; overflow: auto; }
+  .device { background: var(--device-bg); position: relative; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.08); }
+  .screen { display: none; position: absolute; overflow-y: auto; }
+  .screen.active { display: block; }
+
+  /* === DEVICE FRAME — device-browser (800×500) selected: AIBasecamp.TV is a web consumer funnel. ===
+     Alternatives in the reference set: device-mobile (320×640), device-tablet (480×680),
+     device-desktop (720×480), device-extension (360×500). Browser is the right frame here. */
+  .device-browser { border: 1px solid var(--border); border-radius: 8px; width: 800px; height: 500px; }
+  .device-browser .browser-chrome { height: 36px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 12px; gap: 12px; }
+  .device-browser .traffic-lights { display: flex; gap: 6px; flex-shrink: 0; }
+  .device-browser .traffic-lights span { width: 10px; height: 10px; background: var(--wire-line); border-radius: 50%; display: block; }
+  .device-browser .url-bar { flex: 1; max-width: 360px; margin: 0 auto; height: 22px; background: var(--panel); border: 1px solid var(--border); border-radius: 4px; font-size: 11px; color: var(--muted); display: flex; align-items: center; padding: 0 10px; }
+  .device-browser .screen { inset: 36px 0 0 0; padding: 24px 40px; }
+
+  .wire-progress { display: flex; gap: 4px; margin-bottom: 20px; }
+  .wire-progress span { flex: 1; height: 3px; background: var(--wire-fill); border-radius: 2px; }
+  .wire-progress span.done { background: var(--wire-line); }
+  .wire-progress span.current { background: var(--ink); }
+  .wire-headline { font-size: 20px; font-weight: 600; color: var(--ink); margin: 0 0 8px; line-height: 1.3; }
+  .wire-sub { color: var(--wire-text); font-size: 13px; margin: 0 0 16px; }
+  .wire-cue { color: var(--ink); font-size: 13px; font-weight: 600; margin: 14px 0 6px; }
+  .wire-box { background: var(--wire-fill); border: 1px dashed var(--wire-line); border-radius: 8px; padding: 14px; color: var(--wire-text); font-size: 12px; margin-bottom: 10px; }
+  .wire-answer { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px; color: var(--wire-text); font-size: 12px; margin-bottom: 10px; line-height: 1.6; }
+  .wire-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .wire-chip { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 7px 14px; font-size: 12px; cursor: pointer; }
+  .wire-chip:hover { background: var(--bg); }
+  .wire-option { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 8px; font-size: 13px; cursor: pointer; }
+  .wire-option:hover { background: var(--bg); }
+  .wire-feel { display: flex; gap: 8px; margin: 8px 0 4px; }
+  .wire-feel .wire-option { flex: 1; text-align: center; margin-bottom: 0; font-size: 12px; }
+  .wire-cta { background: var(--ink); color: white; border: none; border-radius: 8px; padding: 13px; width: 100%; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 14px; font-family: inherit; }
+  .wire-cta:hover { opacity: 0.9; }
+  .wire-cta.secondary { background: transparent; color: var(--muted); border: 1px solid var(--border); margin-top: 8px; }
+  .wire-skip { background: transparent; border: none; color: var(--muted); font-size: 12px; cursor: pointer; margin-top: 12px; font-family: inherit; text-decoration: underline; }
+  .wire-fine { color: var(--muted); font-size: 11px; text-align: center; margin-top: 10px; }
+  .wire-checklist { list-style: none; padding: 0; margin: 0 0 8px; }
+  .wire-checklist li { padding: 11px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; font-size: 13px; display: flex; gap: 10px; align-items: center; }
+  .wire-checklist li.done { color: var(--muted); background: var(--bg); }
+  .wire-checklist .chk { width: 18px; height: 18px; border: 1px solid var(--wire-line); border-radius: 50%; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+  .wire-checklist li.done .chk { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .wire-pack { border: 1px solid var(--border); border-radius: 10px; padding: 16px; background: var(--panel); margin-bottom: 8px; }
+  .wire-pack .price { font-size: 22px; font-weight: 700; }
+  .annotation { background: var(--panel); border-left: 1px solid var(--border); padding: 24px; overflow-y: auto; }
+  .annotation .ann-screen-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+  .annotation dl { margin: 0; }
+  .annotation dt { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-top: 16px; }
+  .annotation dt:first-child { margin-top: 0; }
+  .annotation dd { margin: 4px 0 0; font-size: 13px; line-height: 1.55; color: var(--ink); }
+  .annotation .magic { background: #fff7ed; border-left: 3px solid #b8860b; padding: 10px 12px; margin-top: 16px; font-size: 12px; color: var(--wire-text); border-radius: 4px; }
+  .annotation .ref { background: var(--note-bg); border-left: 3px solid var(--note-border); padding: 10px 12px; margin-top: 12px; font-size: 12px; color: var(--wire-text); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <h1>Onboarding Wireframe — AIBasecamp.TV</h1>
+  <p>Try-Before-Signup funnel. Click the primary button on each screen to advance, or use the sidebar to jump. The right panel explains what each screen does. Screen 4 ★ is the magic moment.</p>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <h2>Screens</h2>
+    <ol class="screen-list" id="screen-list">
+      <li class="active" data-jump="1"><span class="num">1</span> Pre-signup teaser</li>
+      <li data-jump="2"><span class="num">2</span> Email gate</li>
+      <li data-jump="3"><span class="num">3</span> What describes you?</li>
+      <li data-jump="4"><span class="num">4</span> Task 1 <span class="star">★</span></li>
+      <li data-jump="5"><span class="num">5</span> One down, four to go</li>
+      <li data-jump="6"><span class="num">6</span> Soft bridge ($17)</li>
+    </ol>
+  </aside>
+
+  <main class="canvas">
+    <div class="device device-browser">
+      <div class="browser-chrome">
+        <div class="traffic-lights"><span></span><span></span><span></span></div>
+        <div class="url-bar">aibasecamp.tv</div>
+      </div>
+
+      <!-- Screen 1 — Pre-signup teaser -->
+      <section class="screen active" data-screen="1">
+        <div class="wire-progress"><span class="current"></span><span></span><span></span><span></span><span></span><span></span></div>
+        <h1 class="wire-headline">See what a good question gets you.</h1>
+        <p class="wire-sub">Here's a real AI answer about growing tomatoes. Yours is next — no tech skills, nothing to install, no sign-up to look.</p>
+        <div class="wire-box">PROMPT (written for you): "Explain growing tomatoes to a smart beginner in ~150 words, and name one common mistake. Plain language, no jargon."</div>
+        <div class="wire-answer">[ AI ANSWER — a clear, obviously-good paragraph she can read and judge. Ends with the "common mistake" beat. ]</div>
+        <div class="wire-chips"><span class="wire-chip">gardening</span><span class="wire-chip">cooking</span><span class="wire-chip">managing a team</span><span class="wire-chip">your job</span></div>
+        <button class="wire-cta" data-next="2">Try it with my topic →</button>
+      </section>
+
+      <!-- Screen 2 — Email gate -->
+      <section class="screen" data-screen="2">
+        <div class="wire-progress"><span class="done"></span><span class="current"></span><span></span><span></span><span></span><span></span></div>
+        <button class="wire-skip" data-next="1">← Back</button>
+        <h1 class="wire-headline">Want to do that with your own topic?</h1>
+        <p class="wire-sub">Get the free Starter Kit — your first 5 AI wins, in the right order. No cost, no spam.</p>
+        <div class="wire-option">Continue with Google</div>
+        <div class="wire-option">Continue with Apple</div>
+        <div class="wire-box">[ EMAIL ADDRESS ]</div>
+        <button class="wire-cta" data-next="3">Send me the Starter Kit</button>
+        <p class="wire-fine">No card. Unsubscribe anytime.</p>
+      </section>
+
+      <!-- Screen 3 — Self-ID qualifier -->
+      <section class="screen" data-screen="3">
+        <div class="wire-progress"><span class="done"></span><span class="done"></span><span class="current"></span><span></span><span></span><span></span></div>
+        <h1 class="wire-headline">Quick one — what's true for you?</h1>
+        <p class="wire-sub">So we point you at what helps most. One tap.</p>
+        <div class="wire-option" data-next="4">I work in an office / manage a team</div>
+        <div class="wire-option" data-next="4">I run my own thing</div>
+        <div class="wire-option" data-next="4">I'm just curious</div>
+        <button class="wire-skip" data-next="4">Skip</button>
+      </section>
+
+      <!-- Screen 4 — Task 1 (MAGIC MOMENT) -->
+      <section class="screen" data-screen="4">
+        <div class="wire-progress"><span class="done"></span><span class="done"></span><span class="done"></span><span class="current"></span><span></span><span></span></div>
+        <h1 class="wire-headline">Your turn. Pick something you already know.</h1>
+        <p class="wire-sub">We've written the question for you — just choose your topic and watch.</p>
+        <div class="wire-chips"><span class="wire-chip">my job</span><span class="wire-chip">a hobby</span><span class="wire-chip">something I cook</span><span class="wire-chip">a place I know</span></div>
+        <div class="wire-box">PROMPT (pre-filled with your topic): "I know a lot about [YOUR TOPIC]. Explain it to a smart beginner in ~150 words, and name one mistake people commonly make. Plain language."</div>
+        <div class="wire-answer">[ AI ANSWER on her topic — strong, on-domain ]</div>
+        <p class="wire-cue">You know this — read it. Did it get it right? Miss anything?</p>
+        <p class="wire-sub">That's the whole skill. You weren't behind — you just needed the first step.</p>
+        <div class="wire-feel"><div class="wire-option">I did it 🙂</div><div class="wire-option">Sort of — unsure</div><div class="wire-option">Still stuck</div></div>
+        <button class="wire-cta" data-next="5">Nice — what's next →</button>
+      </section>
+
+      <!-- Screen 5 — Checklist consolidation -->
+      <section class="screen" data-screen="5">
+        <div class="wire-progress"><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="current"></span><span></span></div>
+        <h1 class="wire-headline">One down. Four to go — no rush.</h1>
+        <p class="wire-sub">Do one a day and you're done by Friday. We'll send a gentle nudge so you don't have to remember.</p>
+        <ul class="wire-checklist">
+          <li class="done"><span class="chk">✓</span> 1. Ask about what you know</li>
+          <li><span class="chk"></span> 2. Fix an awkward email</li>
+          <li><span class="chk"></span> 3. Make sense of something confusing</li>
+          <li><span class="chk"></span> 4. Hand off a boring task</li>
+          <li><span class="chk"></span> 5. Make something to show someone</li>
+        </ul>
+        <button class="wire-cta" data-next="6">Do task 2 now</button>
+        <button class="wire-cta secondary" data-next="6">Email me tomorrow's step</button>
+      </section>
+
+      <!-- Screen 6 — Soft bridge to $17 pack -->
+      <section class="screen" data-screen="6">
+        <div class="wire-progress"><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="done"></span><span class="current"></span></div>
+        <h1 class="wire-headline">Want the shortcut?</h1>
+        <p class="wire-sub">The pack has all five tasks written out with the exact words to type — so you never face a blank box again. Optional; the free path works too.</p>
+        <div class="wire-pack">
+          <div class="price">$17 — The 5 AI Tasks pack</div>
+          <div class="wire-sub" style="margin:6px 0 0;">[ all 5 tasks · exact prompts · save-it-forever ]</div>
+        </div>
+        <div class="wire-box" style="text-align:center;">[ reserved: a real student before/after — earned-proof only ]</div>
+        <button class="wire-cta" data-next="1">Get the pack — $17</button>
+        <button class="wire-cta secondary" data-next="1">I'm good with the free path</button>
+      </section>
+
+    </div>
+  </main>
+
+  <aside class="annotation">
+    <h2>Screen notes</h2>
+    <div id="ann-content"></div>
+  </aside>
+
+</div>
+
+<script>
+const annotations = {
+  "1": {
+    title: "1. Pre-signup teaser ('It got me')",
+    goal: "Manufacture one 'oh, it got that' belief beat before any ask — a read-only worked example (the cheap, cold-founder version of the Live Prompt Box).",
+    action: "Read the worked example; optionally tap a topic chip to see another. No typing, no email yet.",
+    proves: "A good question gets a good answer — the deliberate contrast with the bland answer that made her quit.",
+    risk: "If it reads as hype or asks her to type into a blank box, she bounces or re-stages the failure. Keep it read-only and concrete.",
+    ref: "B2B AI SaaS Tactic #1 (Live Prompt Box), adapted read-only; Mobile consumer 'show the win first.'"
+  },
+  "2": {
+    title: "2. Email gate",
+    goal: "Capture email at crystallized interest — framed as getting more / not losing, never 'sign up.'",
+    action: "Tap Google/Apple SSO, or type email; submit. Email only — no other fields.",
+    proves: "The cost of signing up is low because the teaser already paid out.",
+    risk: "A generic email wall bounces. Never ask for more than the email here.",
+    ref: "B2B AI SaaS Tactic #2 (Signup Gate at 'Save') + #3 (SSO above the email field)."
+  },
+  "3": {
+    title: "3. 'What describes you?' (qualified-subscriber beat)",
+    goal: "One-tap self-ID that instruments the Phase-0 qualified-subscriber metric and enables per-persona activation segmentation (the persona-pivot signal).",
+    action: "One tap among three options (or skip). No typing, no second question.",
+    proves: "Which persona this signup is — employee/Diane, freelancer, or curious — captured at the only clean moment.",
+    risk: "Feels like a survey if it's more than one tap. Keep it one tap, skippable.",
+    ref: "B2B AI SaaS Tactic #4 (Ask Exactly One Question, Make It Routing) — repurposed as the persona qualifier."
+  },
+  "4": {
+    title: "4. Task 1 — 'Ask about something you already know' ★",
+    goal: "Deliver the activation event — the frictionless home-turf win — with both beats firing: 'it got me' AND 'I can tell it's right.' Pre-filled prompt, never a blank box.",
+    action: "Pick topic → send the pre-written prompt → read → judge it (cued) → tap 'how did that feel?'.",
+    proves: "She did a real AI task on her own subject and could tell it was right — 'I'm not helpless in front of this.'",
+    risk: "A blank box re-stages the original failure — must be the topic menu + pre-written template. Pre-test prompts so answers are reliably strong.",
+    magic: "MAGIC MOMENT: task-1-in-session-1 completed = the Phase-0 'activated / qualified subscriber' north star firing.",
+    ref: "B2B AI SaaS #5 (no empty state) + #7 (suggested prompt) + #8/#9 (show-your-work / artifact). Magic Moment doc, Task 1 spec."
+  },
+  "5": {
+    title: "5. 'One down, four to go — no rush'",
+    goal: "Consolidate the win into calm momentum — the other four tasks as a gentle one-a-day checklist, never an overwhelming wall.",
+    action: "See the 5-task checklist (task 1 ✓); start task 2, or opt into a tomorrow nudge.",
+    proves: "There's a clear, calm path forward she's already started — and a reason to come back tomorrow.",
+    risk: "Showing all five as a to-do list can overwhelm — the opposite of 'we removed the firehose.' Keep it calm, 'one a day, no rush.'",
+    ref: "B2B AI SaaS Tactic #10 (3–5 item checklist); Product Identity tone (calm, anti-FOMO)."
+  },
+  "6": {
+    title: "6. Soft bridge to the $17 pack",
+    goal: "A gentle, post-win, behavior-triggered bridge to the first paid product — a shortcut, never fear or pressure (the graduation belief forbids it).",
+    action: "See the optional offer; get the pack, or keep going free.",
+    proves: "A paid next step exists for those who want it — offered after a win, with no pressure.",
+    risk: "Pushing the sale hard betrays the 'we won't pressure you' brand. Keep it optional, value-framed, post-win — no FOMO words.",
+    ref: "B2B AI SaaS Tactic #16 (behavior-triggered upgrade, post-value), softened; Business Strategy $17 tripwire. [End of flow — loops to screen 1.]"
+  }
+};
+
+const screens = document.querySelectorAll(".screen");
+const listItems = document.querySelectorAll("#screen-list li");
+const annContent = document.getElementById("ann-content");
+
+function go(n) {
+  const target = String(n);
+  screens.forEach(s => s.classList.toggle("active", s.dataset.screen === target));
+  listItems.forEach(li => li.classList.toggle("active", li.dataset.jump === target));
+  renderAnnotation(target);
+  const dev = document.querySelector(".device"); if (dev) dev.scrollTop = 0;
+}
+
+function renderAnnotation(n) {
+  const a = annotations[n];
+  if (!a) { annContent.innerHTML = ""; return; }
+  annContent.innerHTML = `
+    <div class="ann-screen-title">${a.title}</div>
+    <dl>
+      <dt>Goal of this screen</dt><dd>${a.goal}</dd>
+      <dt>User action expected</dt><dd>${a.action}</dd>
+      <dt>What this proves</dt><dd>${a.proves}</dd>
+      <dt>Drop-off risk</dt><dd>${a.risk}</dd>
+    </dl>
+    ${a.magic ? `<div class="magic">${a.magic}</div>` : ""}
+    <div class="ref">${a.ref}</div>
+  `;
+}
+
+document.querySelectorAll("[data-next]").forEach(el => {
+  el.addEventListener("click", e => go(e.currentTarget.dataset.next));
+});
+listItems.forEach(li => { li.addEventListener("click", () => go(li.dataset.jump)); });
+
+renderAnnotation("1");
+</script>
+
+</body>
+</html>

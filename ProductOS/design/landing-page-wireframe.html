@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing Page Wireframe — AIBasecamp.TV</title>
+<style>
+  :root {
+    --bg:#f5f5f4; --panel:#fff; --border:#d6d3d1; --ink:#1c1917; --muted:#78716c;
+    --accent:#44403c; --device-bg:#fafaf9; --wire-fill:#e7e5e4; --wire-line:#a8a29e;
+    --wire-text:#57534e; --note-bg:#fef3c7; --note-border:#fbbf24;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--ink); font-size:14px; line-height:1.5; }
+  .app-header { padding:14px 24px; border-bottom:1px solid var(--border); background:var(--panel); }
+  .app-header h1 { margin:0 0 4px; font-size:16px; font-weight:600; }
+  .app-header p { margin:0; color:var(--muted); font-size:13px; }
+  .layout { display:grid; grid-template-columns:230px 1fr 320px; height:calc(100vh - 56px); }
+  .sidebar { background:var(--panel); border-right:1px solid var(--border); padding:16px; overflow-y:auto; }
+  .sidebar h2, .annotation h2 { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 12px; }
+  .sec-list { list-style:none; padding:0; margin:0; }
+  .sec-list li { padding:9px 12px; border-radius:6px; cursor:pointer; font-size:13px; display:flex; gap:10px; align-items:center; border:1px solid transparent; margin-bottom:2px; }
+  .sec-list li:hover { background:var(--bg); }
+  .sec-list li.active { background:var(--bg); border-color:var(--border); font-weight:500; }
+  .sec-list .num { display:inline-flex; width:20px; height:20px; background:var(--border); color:var(--ink); border-radius:50%; align-items:center; justify-content:center; font-size:10px; font-weight:600; flex-shrink:0; }
+  .sec-list li.active .num { background:var(--ink); color:#fff; }
+  .canvas { overflow-y:auto; background:var(--bg); padding:24px; }
+  .device-browser { max-width:860px; margin:0 auto; border:1px solid var(--border); border-radius:8px; overflow:hidden; background:var(--device-bg); box-shadow:0 4px 32px rgba(0,0,0,.08); }
+  .browser-chrome { position:sticky; top:0; z-index:5; height:36px; background:var(--bg); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 12px; gap:12px; }
+  .traffic-lights { display:flex; gap:6px; } .traffic-lights span { width:10px; height:10px; background:var(--wire-line); border-radius:50%; }
+  .url-bar { flex:1; max-width:360px; margin:0 auto; height:22px; background:var(--panel); border:1px solid var(--border); border-radius:4px; font-size:11px; color:var(--muted); display:flex; align-items:center; padding:0 10px; }
+  .page-section { padding:40px 48px; border-bottom:1px dashed var(--border); scroll-margin-top:40px; }
+  .page-section.beacon { background:#222; color:#eee; }
+  .page-section.beacon .wire-headline-xl, .page-section.beacon .wire-sub-lg { color:#f5f5f4; }
+  .wire-eyebrow { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--wire-line); margin-bottom:8px; }
+  .wire-nav { display:flex; align-items:center; justify-content:space-between; }
+  .wire-logo { font-weight:700; font-size:15px; } .wire-logo .lamp { color:var(--note-border); }
+  .wire-nav-links { display:flex; gap:16px; font-size:12px; color:var(--wire-text); }
+  .wire-cta-small { background:var(--note-border); color:#1c1917; border-radius:999px; padding:7px 14px; font-size:12px; font-weight:600; }
+  .wire-headline-xl { font-size:30px; font-weight:700; line-height:1.2; margin:0 0 12px; max-width:18ch; }
+  .wire-sub-lg { font-size:15px; color:var(--wire-text); margin:0 0 18px; max-width:46ch; }
+  .wire-cta-lg { display:inline-block; background:var(--note-border); color:#1c1917; border-radius:999px; padding:13px 26px; font-size:14px; font-weight:700; }
+  .wire-hero-visual { margin-top:20px; background:rgba(255,255,255,.06); border:1px dashed var(--wire-line); border-radius:10px; padding:16px; color:#cfe3e8; font-size:12px; }
+  .wire-hero-visual .ans { background:rgba(255,255,255,.08); border-radius:6px; padding:10px; margin-top:8px; }
+  .wire-trust { margin-top:14px; font-size:12px; color:#cfe3e8; }
+  .wire-logos { display:flex; gap:18px; flex-wrap:wrap; align-items:center; margin-top:6px; }
+  .wire-logo-box { background:var(--wire-fill); border-radius:6px; padding:8px 16px; font-size:12px; color:var(--wire-text); }
+  .wire-h2 { font-size:22px; font-weight:700; margin:0 0 10px; max-width:24ch; }
+  .wire-section-sub { color:var(--wire-text); font-size:14px; max-width:54ch; }
+  .wire-steps, .wire-features { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:18px; }
+  .wire-features { grid-template-columns:repeat(2,1fr); }
+  .wire-step, .wire-feature { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px; }
+  .wire-step-num, .wire-feature-icon { width:26px; height:26px; border-radius:50%; background:var(--wire-fill); display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; margin-bottom:8px; }
+  .wire-step-title, .wire-feature-title { font-weight:600; font-size:14px; margin-bottom:4px; }
+  .wire-step-desc, .wire-feature-desc { font-size:12px; color:var(--wire-text); }
+  .wire-reserved { background:var(--note-bg); border:1px dashed var(--note-border); border-radius:10px; padding:18px; margin-top:14px; font-size:13px; color:var(--wire-text); text-align:center; }
+  .wire-pricing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px; }
+  .wire-pricing-tier { border:1px solid var(--border); border-radius:10px; padding:16px; background:var(--panel); position:relative; }
+  .wire-pricing-tier.popular { border-color:var(--ink); border-width:2px; }
+  .wire-pricing-amount { font-size:22px; font-weight:700; } .wire-pricing-name { font-size:13px; color:var(--muted); }
+  .wire-pricing-cta { margin-top:10px; background:var(--ink); color:#fff; border-radius:999px; padding:9px; text-align:center; font-size:12px; font-weight:600; }
+  .wire-pricing-tier.popular .wire-pricing-cta { background:var(--note-border); color:#1c1917; }
+  .wire-faq-item { border-bottom:1px solid var(--border); padding:12px 0; }
+  .wire-faq-q { font-weight:600; font-size:14px; } .wire-faq-a { font-size:13px; color:var(--wire-text); margin-top:4px; }
+  .wire-final-cta { text-align:center; padding:8px 0; }
+  .wire-secondary-link { display:block; margin-top:10px; font-size:13px; color:var(--muted); text-decoration:underline; }
+  .wire-footer { font-size:12px; color:var(--wire-text); }
+  .wire-footer-links { display:flex; gap:14px; flex-wrap:wrap; margin-top:8px; color:var(--muted); }
+  .annotation { background:var(--panel); border-left:1px solid var(--border); padding:24px; overflow-y:auto; }
+  .annotation .ann-title { font-size:15px; font-weight:600; margin-bottom:14px; }
+  .annotation dt { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-top:14px; }
+  .annotation dt:first-child { margin-top:0; }
+  .annotation dd { margin:4px 0 0; font-size:13px; line-height:1.55; }
+  .annotation .ref { background:var(--note-bg); border-left:3px solid var(--note-border); padding:10px 12px; margin-top:16px; font-size:12px; color:var(--wire-text); border-radius:4px; }
+</style>
+</head>
+<body>
+<header class="app-header">
+  <h1>Landing Page Wireframe — AIBasecamp.TV</h1>
+  <p>Scroll the page; the right panel updates per section. Click a section in the sidebar to jump. Lo-fi on purpose — testing flow & copy, not visuals.</p>
+</header>
+<div class="layout">
+  <aside class="sidebar">
+    <h2>Sections</h2>
+    <ol class="sec-list" id="sec-list">
+      <li data-jump="hero" class="active"><span class="num">1</span> Header + Hero</li>
+      <li data-jump="social-bar"><span class="num">2</span> Tools bar</li>
+      <li data-jump="problem"><span class="num">3</span> Problem</li>
+      <li data-jump="solution"><span class="num">4</span> How it works</li>
+      <li data-jump="features"><span class="num">5</span> Benefits</li>
+      <li data-jump="social-proof"><span class="num">6</span> Social proof</li>
+      <li data-jump="pricing"><span class="num">7</span> Pricing</li>
+      <li data-jump="faq"><span class="num">8</span> FAQ</li>
+      <li data-jump="final-cta"><span class="num">9</span> Final CTA</li>
+      <li data-jump="footer"><span class="num">10</span> Footer</li>
+    </ol>
+  </aside>
+
+  <main class="canvas" id="canvas">
+    <div class="device-browser">
+      <div class="browser-chrome">
+        <div class="traffic-lights"><span></span><span></span><span></span></div>
+        <div class="url-bar">aibasecamp.tv</div>
+      </div>
+
+      <section class="page-section beacon" id="hero" data-sec="hero">
+        <div class="wire-nav">
+          <div class="wire-logo">AIBasecamp<span class="lamp">.TV</span></div>
+          <div class="wire-nav-links"><span>How it works</span><span>The free kit</span><span>YouTube</span></div>
+          <div class="wire-cta-small">Get my free Starter Kit</div>
+        </div>
+        <div style="margin-top:34px;">
+          <h1 class="wire-headline-xl">Feel behind on AI? You're not — here's your first step.</h1>
+          <p class="wire-sub-lg">Free, friendly lessons for non-technical people — guided by Scout, who already did the confusing part for you. No tech skills, no jargon.</p>
+          <span class="wire-cta-lg">Get my free Starter Kit</span>
+          <div class="wire-hero-visual">[ Scout, headlamp glowing on a teal mountain-night ] &nbsp;·&nbsp; worked example →
+            <div class="ans">PROMPT: "Explain growing tomatoes to a beginner… name one common mistake."<br>ANSWER: [ a clear, obviously-good paragraph she can read ]</div>
+          </div>
+          <div class="wire-trust">Free · No tech skills · No sign-up to look</div>
+        </div>
+      </section>
+
+      <section class="page-section" id="social-bar" data-sec="social-bar">
+        <div class="wire-eyebrow">The tools you'll actually use (all free to start)</div>
+        <div class="wire-logos">
+          <span class="wire-logo-box">ChatGPT</span><span class="wire-logo-box">Claude</span><span class="wire-logo-box">Canva</span><span class="wire-logo-box">Perplexity</span><span class="wire-logo-box">Grammarly</span>
+        </div>
+      </section>
+
+      <section class="page-section" id="problem" data-sec="problem">
+        <h2 class="wire-h2">You tried it once. It felt like everyone got a memo you didn't.</h2>
+        <p class="wire-section-sub">You opened ChatGPT, typed a question, got a bland answer, and quietly decided you're just not getting it. You're not alone — and you weren't wrong to feel lost. Every "just use AI" article starts three steps ahead of where you are.</p>
+      </section>
+
+      <section class="page-section" id="solution" data-sec="solution">
+        <div class="wire-eyebrow">How it works</div>
+        <h2 class="wire-h2">A calm, walkable path — confidence before capability.</h2>
+        <div class="wire-steps">
+          <div class="wire-step"><div class="wire-step-num">1</div><div class="wire-step-title">Start with what you know</div><div class="wire-step-desc">Your first task uses a topic you're already good at, so you can tell the answer's right. The win comes before anything hard.</div></div>
+          <div class="wire-step"><div class="wire-step-num">2</div><div class="wire-step-title">One small win a day</div><div class="wire-step-desc">Five real tasks, in the order that doesn't lose people. Do one a day and you're using AI for real by Friday.</div></div>
+          <div class="wire-step"><div class="wire-step-num">3</div><div class="wire-step-title">Use AI for real things</div><div class="wire-step-desc">Write the awkward email, make sense of the confusing letter, hand off the boring task. Quietly capable, on your own terms.</div></div>
+        </div>
+      </section>
+
+      <section class="page-section" id="features" data-sec="features">
+        <div class="wire-eyebrow">Why it works</div>
+        <h2 class="wire-h2">Built for someone who feels behind — not a power user.</h2>
+        <div class="wire-features">
+          <div class="wire-feature"><div class="wire-feature-icon">🐻</div><div class="wire-feature-title">A guide, not a guru</div><div class="wire-feature-desc">Scout did the scary part and won't ever make you feel dumb for asking.</div></div>
+          <div class="wire-feature"><div class="wire-feature-icon">🧭</div><div class="wire-feature-title">The right order, not a firehose</div><div class="wire-feature-desc">The five things that matter, in the order that builds confidence — never an overwhelming wall of options.</div></div>
+          <div class="wire-feature"><div class="wire-feature-icon">📋</div><div class="wire-feature-title">The exact words to type</div><div class="wire-feature-desc">Copy-paste prompts mean you never face a blank box. The bland answer wasn't you — it was the wrong question.</div></div>
+          <div class="wire-feature"><div class="wire-feature-icon">🌙</div><div class="wire-feature-title">Go at your own pace</div><div class="wire-feature-desc">No streaks, no pressure, no "you're falling behind." Come back tomorrow; the path waits for you.</div></div>
+        </div>
+      </section>
+
+      <section class="page-section" id="social-proof" data-sec="social-proof">
+        <div class="wire-eyebrow">Real beginner stories</div>
+        <div class="wire-reserved">RESERVED — earned-proof only. Real before/afters from founding members drop in here (name, age, ordinary job). We won't fake it.<br><br><em>Interim, true today:</em> "Built by someone who spent three years deep in these tools, making every mistake so you don't have to."</div>
+      </section>
+
+      <section class="page-section" id="pricing" data-sec="pricing">
+        <div class="wire-eyebrow">When you're ready (no rush, no subscription)</div>
+        <div class="wire-pricing">
+          <div class="wire-pricing-tier popular"><div class="wire-pricing-amount">Free</div><div class="wire-pricing-name">Starter Kit — your first 5 wins</div><div class="wire-pricing-cta">Get my free Starter Kit</div></div>
+          <div class="wire-pricing-tier"><div class="wire-pricing-amount">$17</div><div class="wire-pricing-name">The 5 AI Tasks pack — exact words to type</div><div class="wire-pricing-cta">See what's inside</div></div>
+          <div class="wire-pricing-tier"><div class="wire-pricing-amount">$99</div><div class="wire-pricing-name">Founding course — full Basecamp Path</div><div class="wire-pricing-cta">Join the founding group</div></div>
+        </div>
+      </section>
+
+      <section class="page-section" id="faq" data-sec="faq">
+        <div class="wire-eyebrow">Honest answers</div>
+        <div class="wire-faq-item"><div class="wire-faq-q">Isn't all this free on YouTube already?</div><div class="wire-faq-a">The information is everywhere — that's part of why it's overwhelming. What's not free is the order, the exact words to type, and a guide who won't make you feel dumb.</div></div>
+        <div class="wire-faq-item"><div class="wire-faq-q">Am I too far behind to start?</div><div class="wire-faq-a">No. You weren't behind — you were handed AI in the wrong order. We start with one thing you already know, today.</div></div>
+        <div class="wire-faq-item"><div class="wire-faq-q">Do I need to be technical?</div><div class="wire-faq-a">If you can use email, you can do this. No coding, no setup, nothing to install.</div></div>
+        <div class="wire-faq-item"><div class="wire-faq-q">What if it doesn't click for me?</div><div class="wire-faq-a">Do the course and if it still doesn't click, email us within 60 days for every penny back. If it didn't work, that's on us to teach better.</div></div>
+      </section>
+
+      <section class="page-section beacon" id="final-cta" data-sec="final-cta">
+        <div class="wire-final-cta">
+          <h2 class="wire-headline-xl" style="margin:0 auto 12px;">Start with one thing you already know.</h2>
+          <span class="wire-cta-lg">Get my free Starter Kit</span>
+          <a class="wire-secondary-link">Or watch a 2-minute Scout video first →</a>
+        </div>
+      </section>
+
+      <section class="page-section" id="footer" data-sec="footer">
+        <div class="wire-footer">
+          <div>Made for people who feel behind — by someone who's been there.</div>
+          <div class="wire-footer-links"><span>How it works</span><span>The free kit</span><span>YouTube</span><span>Privacy</span><span>Terms</span><span>Contact</span></div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <aside class="annotation">
+    <h2>Section notes</h2>
+    <div id="ann-content"></div>
+  </aside>
+</div>
+
+<script>
+const annotations = {
+  "hero": { title:"Header + Hero", goal:"Frame the magic moment as a benefit and deliver one 'it got me' beat before any ask (Try-Before-Signup hero).", proves:"A good question gets a good answer — she's not behind, just one step from a win.", risk:"Hype tone or a blank box re-stages the failure that made her quit. Read-only worked example, single CTA.", ref:"Landing Tactics #3 (value-prop headline) + #4 (specific sub-headline)." },
+  "social-bar": { title:"Tools bar (adapted)", goal:"Build familiarity without faking endorsements pre-launch.", proves:"These are everyday tools she's heard of — and they're free to start.", risk:"Fabricated customer logos would break the brand's self-binding trust. Swap to 'loved by N beginners' only once real.", ref:"Tactic #7 (familiar-tools bar instead of fake logos)." },
+  "problem": { title:"Problem", goal:"Name the solo-failure moment in her own words so she feels seen.", proves:"The bland-answer self-blame was the tool's fault, not hers.", risk:"Sounding clinical or pitying. Keep it warm and peer-level.", ref:"Tactic #9 (problem in the customer's verbatim language)." },
+  "solution": { title:"How it works", goal:"Show the Basecamp Path as a calm three-step route — confidence before capability.", proves:"There's a walkable, finishable path; the first step is safe.", risk:"Too many steps or jargon re-creates the overwhelm. Three steps, plain words.", ref:"Tactic #10 (3-step how-it-works)." },
+  "features": { title:"Benefits", goal:"Translate the mechanism into four reassurance-led benefits.", proves:"This is built for a nervous beginner, not a power user.", risk:"Feature-listing instead of benefit-framing. Each is a felt reassurance.", ref:"Tactic #11 (features as benefits)." },
+  "social-proof": { title:"Deep social proof — RESERVED", goal:"Earn belief with peer stories — once they're real.", proves:"(Pending) real beginner before/afters. Until then: founder service credibility only.", risk:"Faking testimonials destroys the whole brand. Ships empty until earned (see Market Validation #12).", ref:"Tactics #12–13 (deferred to the earned-proof milestone)." },
+  "pricing": { title:"Pricing", goal:"Show the gentle one-time ladder without a hard sell; the free kit is the hero.", proves:"A paid path exists for the ready — no subscription, no pressure.", risk:"Pushing the sale betrays the graduation belief. Free is the highlighted default.", ref:"Tactic #14 (gentle lead-magnet ladder)." },
+  "faq": { title:"FAQ", goal:"Defuse the killer objections in plain, honest language.", proves:"'Free on YouTube?' and 'Am I too far behind?' both answered head-on.", risk:"Defensive or salesy answers. Stay honest — even concede the YouTube point.", ref:"Tactic #15 (objection-handling FAQ)." },
+  "final-cta": { title:"Final CTA", goal:"Close with the same single promise, mirroring the hero.", proves:"The ask never changed: start with one thing you know.", risk:"Introducing a new CTA or fear copy here. Same CTA throughout; calm alt.", ref:"Tactic #16 (closing CTA mirrors hero)." },
+  "footer": { title:"Footer", goal:"Quiet trust + legal; consumer, not enterprise.", proves:"Made by a been-there guide; no compliance theatre.", risk:"Adding enterprise badges that don't fit a consumer brand.", ref:"Tactic #17 (footer trust + legal)." }
+};
+
+const listItems = document.querySelectorAll("#sec-list li");
+const annContent = document.getElementById("ann-content");
+const canvas = document.getElementById("canvas");
+
+function render(id) {
+  const a = annotations[id]; if (!a) return;
+  annContent.innerHTML = `<div class="ann-title">${a.title}</div><dl>
+    <dt>Goal</dt><dd>${a.goal}</dd>
+    <dt>What this proves</dt><dd>${a.proves}</dd>
+    <dt>Drop-off risk</dt><dd>${a.risk}</dd></dl>
+    <div class="ref">${a.ref}</div>`;
+  listItems.forEach(li => li.classList.toggle("active", li.dataset.jump === id));
+}
+
+listItems.forEach(li => li.addEventListener("click", () => {
+  document.getElementById(li.dataset.jump).scrollIntoView({behavior:"smooth", block:"start"});
+}));
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) render(e.target.dataset.sec); });
+}, { root: canvas, rootMargin: "-30% 0px -55% 0px", threshold: 0 });
+document.querySelectorAll(".page-section").forEach(s => observer.observe(s));
+
+render("hero");
+</script>
+</body>
+</html>

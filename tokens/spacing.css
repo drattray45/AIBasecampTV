@@ -1,0 +1,93 @@
+/* ============================================================
+   AIBasecamp.TV — SPACING, RADIUS, SHADOW, MOTION
+   Calm, generous negative space is the visual enactment of
+   "we removed the firehose." Roomy defaults; one thing at a time.
+   ============================================================ */
+
+:root {
+  /* Spacing scale — 4px base, but generous defaults in use */
+  --space-1:  0.25rem;  /* 4  */
+  --space-2:  0.5rem;   /* 8  */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.5rem;   /* 24 */
+  --space-6:  2rem;     /* 32 */
+  --space-7:  3rem;     /* 48 */
+  --space-8:  4rem;     /* 64 */
+  --space-9:  6rem;     /* 96 — section rhythm */
+  --space-10: 8rem;     /* 128 — big breathing room */
+
+  /* Semantic spacing */
+  --pad-card:      var(--space-6);
+  --gap-stack:     var(--space-5);
+  --section-y:     var(--space-9);
+  --content-max:   68rem;   /* comfortable page width */
+  --prose-max:     34rem;   /* short reading measure */
+
+  /* Radius — soft, hand-friendly, never sharp-techy */
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-pill: 999px;   /* CTAs are pills */
+
+  /* Borders */
+  --border-w: 1px;
+  --border-w-strong: 2px;
+
+  /* Shadows — warm, soft, low. Never a hard techy drop-shadow.
+     Paper shadows tinted warm-brown; beacon uses glow instead. */
+  --shadow-sm:  0 1px 2px rgba(60, 47, 34, 0.06);
+  --shadow-md:  0 4px 16px rgba(60, 47, 34, 0.08);
+  --shadow-lg:  0 12px 40px rgba(60, 47, 34, 0.10);
+  --shadow-cta: 0 6px 20px rgba(217, 158, 40, 0.28); /* amber CTA lift */
+  --glow-lamp:  0 0 40px rgba(255, 210, 74, 0.35);   /* headlamp glow on beacon */
+
+  /* Motion — calm, no bounce, no hype. Gentle fades + slides. */
+  --ease-calm:  cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --dur-fast:   140ms; /* @kind other */
+  --dur-base:   240ms; /* @kind other */
+  --dur-slow:   420ms; /* @kind other */
+
+  /* Landing layout */
+  --header-z:           20;
+  --nav-panel-z:          40;
+  --modal-z:              50;
+  --dur-menu:             260ms;
+  --dur-lamp-on:          2s;
+  --dur-lamp-breathe:     6s;
+  --dur-nav-scroll:       250ms;
+  --ease-lamp-on:         cubic-bezier(0.22, 0.61, 0.36, 1);
+  --lamp-flare-opacity:   1;
+  --lamp-flare-scale:     1.15;
+  --lamp-flare-brightness: 1.15;
+  --lamp-rest-opacity:    0.52;
+  --lamp-rest-scale:      0.84;
+  --lamp-rest-brightness: 0.58;
+  --lamp-lens-flare-scale: 1.2;
+  --lamp-lens-rest-scale:  0.88;
+  --lamp-lens-rest-brightness: 0.62;
+  --tap-target-min:       2.75rem;
+  --headlamp-glow-size:   20rem;
+  --scout-hero-height:    10.5rem;
+  --hero-min-height:      36rem;
+  --overlay-blur:         3px;
+  --header-blur:          10px;
+  --prose-narrow:         52rem;
+  --cta-narrow:           52rem;
+  --grid-gap-cards:       var(--space-5);
+  --grid-gap-hero:        var(--space-7);
+  --pad-inline-page:      var(--space-6);
+  --pad-header-y:         var(--space-4);
+  --pad-header-x:         var(--space-6);
+  --header-offset:        calc(var(--pad-header-y) * 2 + var(--space-7) + var(--space-4));
+  --pad-hero-y-top:       var(--space-8);
+  --pad-hero-y-bottom:    var(--space-9);
+  --pad-tools-y:          var(--space-7);
+  --pad-footer-y:         var(--space-7);
+  --gap-nav:              var(--space-5);
+  --gap-footer-nav:       var(--space-4);
+  --hero-scout-width:       13rem;
+  --hero-scout-aspect:        1.17;
+  --hero-scout-overlap:       0.30;
+  --hero-scout-outset:        0.14;

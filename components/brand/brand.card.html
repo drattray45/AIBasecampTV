@@ -1,0 +1,32 @@
+<!-- @dsCard group="Components" viewport="700x260" name="Brand — Logo" subtitle="Wordmark on paper & beacon, with Scout mark" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin:0; font-family:var(--font-body); }
+  .band { padding:34px 28px; display:flex; flex-direction:column; gap:20px; }
+  .paper { background:var(--surface-page); }
+  .beaconband { background:var(--beacon-gradient); }
+</style>
+</head>
+<body>
+<div class="band paper" id="paper"></div>
+<div class="band beaconband beacon" id="beacon"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const { Logo } = window.AIBasecampTVDesignSystem_944591;
+  const src = "../../assets/scout-portrait.png";
+  ReactDOM.createRoot(document.getElementById("paper")).render(
+    <><Logo size="lg" markSrc={src} /><Logo size="md" showMark={false} /></>
+  );
+  ReactDOM.createRoot(document.getElementById("beacon")).render(
+    <><Logo size="lg" markSrc={src} /><Logo size="md" showMark={false} /></>
+  );
+</script>
+</body>
+</html>

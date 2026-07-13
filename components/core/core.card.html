@@ -1,0 +1,47 @@
+<!-- @dsCard group="Components" viewport="700x360" name="Core — Buttons, Chips, Badges" subtitle="CTA pill, tool chips, calm labels" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body { margin:0; font-family:var(--font-body); background:var(--surface-page); color:var(--text-body); padding:28px; }
+  .row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:22px; }
+  .lbl { font-size:var(--text-xs); letter-spacing:var(--tracking-wide); text-transform:uppercase; color:var(--text-muted); width:100%; margin-bottom:2px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+  const { Button, ToolChip, Badge } = window.AIBasecampTVDesignSystem_944591;
+  function Demo() {
+    return (
+      <>
+        <div className="lbl">Buttons</div>
+        <div className="row">
+          <Button variant="primary">Get my free Starter Kit</Button>
+          <Button variant="secondary">See what's inside</Button>
+          <Button variant="quiet" as="a" href="#">Watch a 2-minute Scout video</Button>
+        </div>
+        <div className="lbl">Tools bar</div>
+        <div className="row">
+          <ToolChip>ChatGPT</ToolChip><ToolChip>Claude</ToolChip><ToolChip>Canva</ToolChip><ToolChip>Perplexity</ToolChip><ToolChip>Grammarly</ToolChip>
+        </div>
+        <div className="lbl">Badges</div>
+        <div className="row">
+          <Badge tone="free">Free</Badge>
+          <Badge tone="success">Nice — you did that</Badge>
+          <Badge tone="note">Reserved</Badge>
+          <Badge tone="neutral">No sign-up</Badge>
+        </div>
+      </>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
+</body>
+</html>

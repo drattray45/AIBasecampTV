@@ -50,13 +50,16 @@
   --dur-slow:   420ms; /* @kind other */
 
   /* Landing layout */
-  --header-z:           20;
-  --nav-panel-z:          40;
-  --modal-z:              50;
+  --header-z:             100;
+  --hero-scout-z:         20;
+  --hero-card-z:          10;
+  --nav-panel-z:          140;
+  --modal-z:              150;
   --dur-menu:             260ms;
   --dur-lamp-on:          2s;
   --dur-lamp-breathe:     6s;
-  --dur-nav-scroll:       250ms;
+  --dur-nav-scroll:       200ms;
+  --scroll-header-threshold: 2.5rem;
   --ease-lamp-on:         cubic-bezier(0.22, 0.61, 0.36, 1);
   --lamp-flare-opacity:   1;
   --lamp-flare-scale:     1.15;
@@ -72,7 +75,7 @@
   --scout-hero-height:    10.5rem;
   --hero-min-height:      36rem;
   --overlay-blur:         3px;
-  --header-blur:          10px;
+  --header-blur:          8px;
   --prose-narrow:         52rem;
   --cta-narrow:           52rem;
   --grid-gap-cards:       var(--space-5);
@@ -80,7 +83,9 @@
   --pad-inline-page:      var(--space-6);
   --pad-header-y:         var(--space-4);
   --pad-header-x:         var(--space-6);
-  --header-offset:        calc(var(--pad-header-y) * 2 + var(--space-7) + var(--space-4));
+  --nav-mark-size:        5.25rem;
+  --header-height:        calc(var(--pad-header-y) * 2 + var(--nav-mark-size));
+  --header-offset:        var(--header-height);
   --pad-hero-y-top:       var(--space-8);
   --pad-hero-y-bottom:    var(--space-9);
   --pad-tools-y:          var(--space-7);

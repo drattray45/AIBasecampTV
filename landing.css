@@ -10,6 +10,7 @@ html {
   overflow-x: clip;
   margin: 0;
   padding: 0;
+  scroll-padding-top: var(--header-height);
 }
 
 html,
@@ -54,9 +55,20 @@ a:hover {
 }
 
 .hero-stack {
+  position: relative;
   margin: 0;
   padding: 0;
   background: var(--beacon-gradient);
+}
+
+.hero-scroll-sentinel {
+  position: absolute;
+  top: var(--scroll-header-threshold);
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .container {
@@ -81,7 +93,7 @@ a:hover {
   background: var(--surface-raised);
 }
 
-/* Sticky header — transparent over hero, warm-paper when scrolled */
+/* Sticky header — transparent at top, teal backdrop once scrolled past threshold */
 .site-header {
   position: sticky;
   top: 0;
@@ -89,18 +101,23 @@ a:hover {
   z-index: var(--header-z);
   background: transparent;
   backdrop-filter: none;
-  border-bottom: var(--border-w) solid var(--nav-overlay-divider);
+  -webkit-backdrop-filter: none;
+  border-bottom: var(--border-w) solid transparent;
   box-shadow: none;
   transition:
     background-color var(--dur-nav-scroll) var(--ease-calm),
     border-color var(--dur-nav-scroll) var(--ease-calm),
-    box-shadow var(--dur-nav-scroll) var(--ease-calm);
+    box-shadow var(--dur-nav-scroll) var(--ease-calm),
+    backdrop-filter var(--dur-nav-scroll) var(--ease-calm),
+    -webkit-backdrop-filter var(--dur-nav-scroll) var(--ease-calm);
 }
 
 .site-header.is-scrolled {
-  background: var(--surface-page);
-  border-bottom-color: var(--border-hairline);
-  box-shadow: var(--shadow-sm);
+  background: var(--header-backdrop);
+  backdrop-filter: blur(var(--header-blur));
+  -webkit-backdrop-filter: blur(var(--header-blur));
+  border-bottom-color: var(--nav-overlay-divider);
+  box-shadow: none;
 }
 
 .site-header .site-nav__link,
@@ -512,7 +529,7 @@ a:hover {
 
 .hero-beacon__content {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   min-width: 0;
   padding-right: var(--space-4);
 }
@@ -571,7 +588,7 @@ a:hover {
 
 .hero-beacon__scout {
   position: absolute;
-  z-index: 3;
+  z-index: var(--hero-scout-z);
   top: 0;
   right: calc(var(--hero-scout-width) * var(--hero-scout-outset) * -1);
   width: var(--hero-scout-width);
@@ -586,7 +603,7 @@ a:hover {
 
 .hero-beacon__demo {
   position: relative;
-  z-index: 1;
+  z-index: var(--hero-card-z);
   width: 100%;
 }
 
@@ -917,6 +934,10 @@ a:hover {
 
 /* Mobile nav + layout (768px and below) */
 @media (max-width: 768px) {
+  :root {
+    --nav-mark-size: 3.25rem;
+  }
+
   .site-nav--desktop {
     display: none;
   }
@@ -1016,6 +1037,10 @@ a:hover {
 }
 
 @media (max-width: 390px) {
+  :root {
+    --nav-mark-size: 2.75rem;
+  }
+
   .site-header__inner {
     padding-inline: var(--space-3);
     gap: var(--space-1);
@@ -1037,6 +1062,10 @@ a:hover {
 }
 
 @media (max-width: 360px) {
+  :root {
+    --nav-mark-size: 2.5rem;
+  }
+
   .site-header__inner {
     padding-inline: var(--space-2);
   }

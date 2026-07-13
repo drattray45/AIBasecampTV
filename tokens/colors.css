@@ -83,7 +83,7 @@
 
   /* Overlays & marketing surfaces */
   --overlay-backdrop:  color-mix(in srgb, var(--teal-950) 55%, transparent);
-  --header-backdrop:   color-mix(in srgb, var(--teal-950) 82%, transparent);
+  --header-backdrop:   color-mix(in srgb, var(--teal-950) 92%, transparent);
   --nav-overlay-divider: rgba(255, 255, 255, 0.1);
   --beacon-banner-opacity: 0.48;
 }

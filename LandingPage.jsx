@@ -29,7 +29,7 @@ const NAV_LINKS = [
 
 function Header({ onGet }) {
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const [pastHero, setPastHero] = React.useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
   const menuRef = React.useRef(null);
   const hamburgerRef = React.useRef(null);
 
@@ -37,14 +37,14 @@ function Header({ onGet }) {
   const openMenu = React.useCallback(() => setMenuOpen(true), []);
 
   React.useEffect(() => {
-    const hero = document.querySelector(".hero-beacon");
-    if (!hero || typeof IntersectionObserver === "undefined") return undefined;
+    const sentinel = document.querySelector(".hero-scroll-sentinel");
+    if (!sentinel || typeof IntersectionObserver === "undefined") return undefined;
 
     const observer = new IntersectionObserver(
-      ([entry]) => setPastHero(!entry.isIntersecting),
+      ([entry]) => setIsScrolled(!entry.isIntersecting),
       { threshold: 0 }
     );
-    observer.observe(hero);
+    observer.observe(sentinel);
     return () => observer.disconnect();
   }, []);
 
@@ -115,7 +115,8 @@ function Header({ onGet }) {
     <header
       className={[
         "site-header",
-        pastHero ? "is-scrolled" : "beacon",
+        "beacon",
+        isScrolled && "is-scrolled",
         menuOpen && "is-menu-open",
       ].filter(Boolean).join(" ")}
     >
@@ -285,6 +286,7 @@ function LandingPage() {
   return (
     <div className="page">
       <div className="hero-stack beacon">
+        <div className="hero-scroll-sentinel" aria-hidden="true" />
         <Header onGet={onGet} />
         <Hero onGet={onGet} />
       </div>

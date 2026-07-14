@@ -14,6 +14,7 @@ import {
   FAQItem,
   Logo,
 } from "./_ds_bundle.js";
+import { LEGAL_NAV_LINKS } from "./legalLinks.js";
 
 const SCOUT = "/images/scout-on-trans-bk.png";
 const SCOUT_NAV = "/images/scout-circle-trans.png";
@@ -845,8 +846,10 @@ function LandingPage() {
             <FooterSocial />
           </div>
           <nav className="site-footer__nav" aria-label="Legal and contact">
-            {["Privacy", "Terms", "Contact"].map((l) => (
-              <a key={l} href="#" className="site-footer__link">{l}</a>
+            {LEGAL_NAV_LINKS.map((link) => (
+              <a key={link.label} href={link.href} className="site-footer__link">
+                {link.label}
+              </a>
             ))}
           </nav>
           <FooterNewsletter />

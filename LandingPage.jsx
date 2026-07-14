@@ -623,12 +623,11 @@ function LandingPage() {
         </Card>
       </Section>
 
-      <StarterKitSection />
-
       <section id="watch" className="beacon cta-beacon">
         <div className="container--cta cta-beacon__inner">
-          <h2 className="cta-beacon__title">Start with one thing you already{"\u00A0"}know.</h2>
-          <Button variant="primary" size="lg" as="a" href={STARTER_KIT_ANCHOR}>Get my free Starter Kit</Button>
+          <h2 className="cta-beacon__title">
+            You were never behind. You were handed AI in the wrong order.
+          </h2>
           <div className="cta-beacon__alt">
             <Button
               variant="quiet"
@@ -642,6 +641,8 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
+      <StarterKitSection />
 
       <footer className="site-footer">
         <div className="container site-footer__inner">

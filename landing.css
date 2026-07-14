@@ -1093,12 +1093,13 @@ a:hover {
 .cta-beacon__title {
   font: var(--type-h1);
   color: var(--text-heading);
-  margin: 0 auto var(--space-5);
-  max-width: var(--measure-heading);
+  margin: 0 auto var(--space-4);
+  max-width: var(--measure-section-title);
+  text-wrap: balance;
 }
 
 .cta-beacon__alt {
-  margin-top: var(--space-4);
+  margin-top: 0;
 }
 
 /* Footer */

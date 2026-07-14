@@ -122,6 +122,6 @@
 
   /* Footer social icons */
   --social-icon-size:           2.25rem;
-  --social-icon-size-youtube:   2.7rem;
+  --social-icon-size-youtube:   2.875rem;
   --social-icon-gap:            var(--space-4);
 }

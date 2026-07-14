@@ -695,12 +695,12 @@ function LandingPage() {
       <footer className="site-footer">
         <div className="container site-footer__inner">
           <div>
-            <Logo size="sm" showMark markSrc={SCOUT} markAvatar />
+            <Logo size="md" showMark markSrc={SCOUT_NAV} markCircular className="site-footer__logo" />
             <p className="site-footer__tagline">Made for people who feel behind, by someone who's been{"\u00A0"}there.</p>
             <FooterSocial />
           </div>
-          <nav className="site-footer__nav">
-            {["How it works", "The free kit", "Privacy", "Terms", "Contact"].map((l) => (
+          <nav className="site-footer__nav" aria-label="Legal and contact">
+            {["Privacy", "Terms", "Contact"].map((l) => (
               <a key={l} href="#" className="site-footer__link">{l}</a>
             ))}
           </nav>
@@ -810,13 +810,12 @@ function FooterNewsletter() {
               }
             />
             <Button
-              variant="primary"
+              variant="secondary"
               size="md"
               type="submit"
               className="site-footer-newsletter__submit"
               disabled={submitting}
               aria-busy={submitting || undefined}
-              style={{ boxShadow: "none" }}
             >
               {submitting ? "Sending…" : "Send me Scout's notes"}
             </Button>

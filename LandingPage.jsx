@@ -6,7 +6,6 @@ import {
   Button,
   ToolChip,
   Badge,
-  Input,
   Textarea,
   Card,
   Callout,
@@ -19,7 +18,15 @@ import {
 
 const SCOUT = "/images/scout-on-trans-bk.png";
 const SCOUT_NAV = "/images/scout-circle-trans.png";
+const STARTER_KIT_COVER = "/images/Your-first-5-wins.png";
 const MOBILE_NAV_ID = "site-mobile-nav";
+const STARTER_KIT_ANCHOR = "#starter-kit";
+
+// SwipeOne field hashes — will change if the form is rebuilt in SwipeOne, which breaks submission silently.
+const SWIPEONE_SUBMIT_URL = "https://api.swipeone.com/forms/6a556e47ac97da23d73bf2d1/submit";
+const SWIPEONE_FIELD_FIRST_NAME = "cb9c3a2658";
+const SWIPEONE_FIELD_EMAIL = "7eab9fd5ad";
+const SWIPEONE_FIELD_HONEYPOT = "_so_hp";
 
 const NAV_LINKS = [
   { href: "#how", label: "How it works" },
@@ -31,7 +38,7 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 }
 
-function Header({ onGet }) {
+function Header() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
   const menuRef = React.useRef(null);
@@ -112,7 +119,6 @@ function Header({ onGet }) {
 
   const handlePanelCta = () => {
     closeMenu();
-    onGet();
   };
 
   return (
@@ -133,11 +139,11 @@ function Header({ onGet }) {
           {NAV_LINKS.map((link) => (
             <a key={link.href} href={link.href} className="site-nav__link">{link.label}</a>
           ))}
-          <Button variant="primary" size="md" onClick={onGet}>Get my free Starter Kit</Button>
+          <Button variant="primary" size="md" as="a" href={STARTER_KIT_ANCHOR}>Get my free Starter Kit</Button>
         </nav>
 
         <div className="site-header__mobile">
-          <Button variant="primary" size="md" className="site-header__cta" onClick={onGet}>
+          <Button variant="primary" size="md" className="site-header__cta" as="a" href={STARTER_KIT_ANCHOR} onClick={closeMenu}>
             <span className="site-header__cta-label site-header__cta-label--short">Get the free kit</span>
             <span className="site-header__cta-label site-header__cta-label--full">Get my free Starter Kit</span>
           </Button>
@@ -196,7 +202,7 @@ function Header({ onGet }) {
         </ul>
 
         <div className="site-nav__panel-footer">
-          <Button variant="primary" size="lg" fullWidth onClick={handlePanelCta}>
+          <Button variant="primary" size="lg" fullWidth as="a" href={STARTER_KIT_ANCHOR} onClick={handlePanelCta}>
             Get my free Starter Kit
           </Button>
         </div>
@@ -205,7 +211,7 @@ function Header({ onGet }) {
   );
 }
 
-function Hero({ onGet }) {
+function Hero() {
   return (
     <section className="hero-beacon">
       <div className="container hero-beacon__inner">
@@ -222,7 +228,7 @@ function Hero({ onGet }) {
           <p className="hero-beacon__lead">
             Free, friendly lessons for non-technical people, guided by Scout, who already did the confusing part for you. No tech skills, no jargon.
           </p>
-          <Button variant="primary" size="lg" onClick={onGet}>Get my free Starter Kit</Button>
+          <Button variant="primary" size="lg" as="a" href={STARTER_KIT_ANCHOR}>Get my free Starter Kit</Button>
           <div className="hero-beacon__meta">Free · No tech skills · No sign-up to look</div>
         </div>
         <div className="hero-beacon__visual">
@@ -331,17 +337,231 @@ function Section({ id, eyebrow, title, sub, children, narrow, centered }) {
   );
 }
 
-function LandingPage() {
-  const [open, setOpen] = React.useState(false);
-  const [done, setDone] = React.useState(false);
-  const onGet = () => { setDone(false); setOpen(true); };
+function scrollToStarterKit(event) {
+  event?.preventDefault?.();
+  document.getElementById("starter-kit")?.scrollIntoView({ behavior: "smooth" });
+}
 
+function StarterKitSection() {
+  const [firstName, setFirstName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [honeypot, setHoneypot] = React.useState("");
+  const [fieldErrors, setFieldErrors] = React.useState({ firstName: "", email: "" });
+  const [networkError, setNetworkError] = React.useState("");
+  const [submitting, setSubmitting] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
+
+  const firstNameId = "starter-kit-first-name";
+  const emailId = "starter-kit-email";
+  const statusId = "starter-kit-status";
+
+  const validateFirstName = (value) => {
+    if (!value.trim()) return "What should Scout call you?";
+    return "";
+  };
+
+  const validateEmail = (value) => {
+    if (!value.trim()) return "An email address helps us send the kit.";
+    if (!isValidEmail(value)) return "That address does not look right. Mind checking it?";
+    return "";
+  };
+
+  const setFieldError = (field, message) => {
+    setFieldErrors((prev) => ({ ...prev, [field]: message }));
+  };
+
+  const handleFirstNameBlur = () => {
+    setFieldError("firstName", validateFirstName(firstName));
+  };
+
+  const handleEmailBlur = () => {
+    setFieldError("email", validateEmail(email));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setNetworkError("");
+
+    const firstNameError = validateFirstName(firstName);
+    const emailError = validateEmail(email);
+    setFieldErrors({ firstName: firstNameError, email: emailError });
+
+    if (firstNameError || emailError) return;
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(SWIPEONE_SUBMIT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          [SWIPEONE_FIELD_FIRST_NAME]: firstName.trim(),
+          [SWIPEONE_FIELD_EMAIL]: email.trim(),
+          [SWIPEONE_FIELD_HONEYPOT]: honeypot,
+          _pageUrl: window.location.href,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (data.status === "success") {
+        setSuccess(true);
+        return;
+      }
+
+      setNetworkError(
+        typeof data.message === "string" && data.message.trim()
+          ? data.message
+          : "Something did not go through on our end. Mind trying once more?"
+      );
+    } catch {
+      setNetworkError("We could not reach the server right now. Mind trying once more in a moment?");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <section id="starter-kit" className="starter-kit" aria-labelledby="starter-kit-heading">
+      <div className="starter-kit__inner">
+        <div className="starter-kit__cover-col">
+          <div className="starter-kit__cover">
+            <img
+              src={STARTER_KIT_COVER}
+              alt="Cover of the Your first five AI wins Starter Kit booklet"
+              className="starter-kit__cover-img"
+              width={280}
+              height={360}
+            />
+          </div>
+        </div>
+
+        <div className="starter-kit__form-col">
+          {success ? (
+            <div role="status" aria-live="polite" aria-atomic="true">
+              <h2 id="starter-kit-heading" className="starter-kit__success-title">
+                Your Starter Kit is on its way.
+              </h2>
+              <p className="starter-kit__success-body">
+                Check your inbox. Task one uses something you already know, so you will be able to tell the answer is right.
+              </p>
+            </div>
+          ) : (
+            <>
+              <h2 id="starter-kit-heading" className="starter-kit__title">
+                Your first five AI wins.
+              </h2>
+              <p className="starter-kit__sub">
+                Five real tasks, in the order that does not lose people. Do one a day and you are using AI for real by Friday. No cost, nothing to install, no rush.
+              </p>
+
+              <form className="starter-kit-form" onSubmit={handleSubmit} noValidate>
+                <div className="starter-kit-form__fields">
+                  <div>
+                    <label htmlFor={firstNameId} className="visually-hidden">First name</label>
+                    <input
+                      id={firstNameId}
+                      className="starter-kit-form__input"
+                      type="text"
+                      name="firstName"
+                      autoComplete="given-name"
+                      required
+                      placeholder="First name"
+                      value={firstName}
+                      onChange={(event) => {
+                        setFirstName(event.target.value);
+                        if (fieldErrors.firstName) setFieldError("firstName", "");
+                      }}
+                      onBlur={handleFirstNameBlur}
+                      aria-invalid={fieldErrors.firstName ? "true" : undefined}
+                      aria-describedby={fieldErrors.firstName ? `${firstNameId}-error` : undefined}
+                    />
+                    {fieldErrors.firstName ? (
+                      <p id={`${firstNameId}-error`} className="starter-kit-form__error" role="alert" aria-live="polite">
+                        {fieldErrors.firstName}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <div>
+                    <label htmlFor={emailId} className="visually-hidden">Email</label>
+                    <input
+                      id={emailId}
+                      className="starter-kit-form__input"
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      required
+                      placeholder="you@example.com"
+                      value={email}
+                      onChange={(event) => {
+                        setEmail(event.target.value);
+                        if (fieldErrors.email) setFieldError("email", "");
+                      }}
+                      onBlur={handleEmailBlur}
+                      aria-invalid={fieldErrors.email ? "true" : undefined}
+                      aria-describedby={
+                        fieldErrors.email || networkError
+                          ? statusId
+                          : "starter-kit-fine"
+                      }
+                    />
+                    {fieldErrors.email ? (
+                      <p id={statusId} className="starter-kit-form__error" role="alert" aria-live="polite">
+                        {fieldErrors.email}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+
+                <input
+                  type="text"
+                  name={SWIPEONE_FIELD_HONEYPOT}
+                  className="starter-kit-form__hp"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={honeypot}
+                  onChange={(event) => setHoneypot(event.target.value)}
+                />
+
+                {networkError && !fieldErrors.email ? (
+                  <p id={statusId} className="starter-kit-form__network-error" role="alert" aria-live="polite">
+                    {networkError}
+                  </p>
+                ) : null}
+
+                <Button
+                  variant="primary"
+                  size="lg"
+                  type="submit"
+                  className="starter-kit-form__submit"
+                  disabled={submitting}
+                  aria-busy={submitting || undefined}
+                >
+                  {submitting ? "Sending…" : "Get my free Starter Kit"}
+                </Button>
+
+                <p id="starter-kit-fine" className="reassurance-line starter-kit-form__fine">
+                  You will also get a short note from Scout most weeks. Unsubscribe anytime.
+                </p>
+              </form>
+            </>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LandingPage() {
   return (
     <div className="page">
       <div className="hero-stack beacon">
         <div className="hero-scroll-sentinel" aria-hidden="true" />
-        <Header onGet={onGet} />
-        <Hero onGet={onGet} />
+        <Header />
+        <Hero />
       </div>
       <ToolsBar />
 
@@ -380,9 +600,9 @@ function LandingPage() {
 
       <Section id="kit" eyebrow="When you're ready (no rush, no subscription)" title={"A gentle, one-time ladder. The free kit is the\u00A0point."}>
         <div className="grid-pricing">
-          <PricingCard featured amount="Free" name="Starter Kit" blurb="Your first 5 AI wins, in the right order." ctaLabel="Get my free Starter Kit" onCtaClick={onGet} />
-          <PricingCard amount="$17" name="The 5 AI Tasks pack" blurb="Every task written out with the exact words to type." ctaLabel="See what's inside" onCtaClick={onGet} />
-          <PricingCard amount="$99" name="Founding course" blurb="The full Basecamp Path, founding price, backed by the 60-day promise." ctaLabel="Join the founding group" onCtaClick={onGet} />
+          <PricingCard featured amount="Free" name="Starter Kit" blurb="Your first 5 AI wins, in the right order." ctaLabel="Get my free Starter Kit" onCtaClick={scrollToStarterKit} />
+          <PricingCard amount="$17" name="The 5 AI Tasks pack" blurb="Every task written out with the exact words to type." ctaLabel="See what's inside" />
+          <PricingCard amount="$99" name="Founding course" blurb="The full Basecamp Path, founding price, backed by the 60-day promise." ctaLabel="Join the founding group" />
         </div>
       </Section>
 
@@ -396,10 +616,12 @@ function LandingPage() {
         </Card>
       </Section>
 
+      <StarterKitSection />
+
       <section id="watch" className="beacon cta-beacon">
         <div className="container--cta cta-beacon__inner">
           <h2 className="cta-beacon__title">Start with one thing you already{"\u00A0"}know.</h2>
-          <Button variant="primary" size="lg" onClick={onGet}>Get my free Starter Kit</Button>
+          <Button variant="primary" size="lg" as="a" href={STARTER_KIT_ANCHOR}>Get my free Starter Kit</Button>
           <div className="cta-beacon__alt">
             <Button variant="quiet" as="a" href="#">Or watch a 2-minute Scout video first</Button>
           </div>
@@ -420,47 +642,6 @@ function LandingPage() {
           <FooterNewsletter />
         </div>
       </footer>
-
-      {open && <StarterKitModal done={done} setDone={setDone} onClose={() => setOpen(false)} />}
-    </div>
-  );
-}
-
-function StarterKitModal({ done, setDone, onClose }) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // TODO: wire to email platform (Kit/ConvertKit/etc.) — captures Starter Kit + newsletter list
-    setDone(true);
-  };
-
-  return (
-    <div className="modal-overlay" onClick={onClose} role="presentation">
-      <div className="modal-panel" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="starter-kit-title">
-        <Card tone="paper" elevated>
-          {!done ? (
-            <form className="modal-panel__form" onSubmit={handleSubmit}>
-              <div className="modal-panel__header">
-                <img src={SCOUT} alt="Scout" className="modal-panel__scout" />
-                <Badge tone="free">Free</Badge>
-              </div>
-              <h3 id="starter-kit-title" className="modal-panel__title">Your first 5 AI wins, in the right{"\u00A0"}order.</h3>
-              <p className="modal-panel__body">Tell us where to send the Starter Kit. No spam, and no sign-up needed to look around.</p>
-              <div className="modal-panel__field">
-                <Input label="Your email" type="email" required placeholder="you@example.com" />
-                <p className="reassurance-line">You'll also get a short note from Scout most weeks. Unsubscribe anytime.</p>
-              </div>
-              <Button variant="primary" size="lg" type="submit" fullWidth>Get my free Starter Kit</Button>
-            </form>
-          ) : (
-            <div className="modal-panel__success">
-              <img src={SCOUT} alt="Scout" className="modal-panel__scout modal-panel__scout--lg" />
-              <h3 className="modal-panel__title">Nice. Check your email.</h3>
-              <p className="modal-panel__body">Your Starter Kit is on its way. Start with step one whenever you're ready. No rush, the path waits for you.</p>
-              <Button variant="secondary" size="md" onClick={onClose}>Back to the page</Button>
-            </div>
-          )}
-        </Card>
-      </div>
     </div>
   );
 }

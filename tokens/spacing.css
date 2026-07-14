@@ -110,4 +110,10 @@
   --hero-scout-aspect:        1.17;
   --hero-scout-overlap:       0.30;
   --hero-scout-outset:        0.14;
+
+  /* Starter Kit lead magnet cover */
+  --starter-kit-cover-rotate: 3.5deg;
+  --starter-kit-cover-max:    17.5rem;
+  --starter-kit-grid-gap:     var(--grid-gap-hero);
+  --starter-kit-form-gap:     var(--space-4);
 }

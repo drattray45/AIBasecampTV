@@ -11,6 +11,7 @@ html {
   margin: 0;
   padding: 0;
   scroll-padding-top: var(--header-height);
+  scroll-behavior: smooth;
 }
 
 html,
@@ -801,6 +802,10 @@ a:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .tools-bar__label,
   .tools-bar__chip {
     opacity: 1;
@@ -896,6 +901,168 @@ a:hover {
 
 .faq-card button[aria-expanded] {
   text-wrap: balance;
+}
+
+/* Starter Kit lead magnet */
+.starter-kit {
+  padding: var(--section-y) var(--pad-inline-page);
+  background: var(--surface-page);
+}
+
+.starter-kit__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--starter-kit-grid-gap);
+  align-items: center;
+}
+
+.starter-kit__cover-col {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.starter-kit__cover {
+  position: relative;
+  max-width: var(--starter-kit-cover-max);
+  transform: rotate(var(--starter-kit-cover-rotate));
+  box-shadow: var(--shadow-lg);
+}
+
+.starter-kit__cover::after {
+  content: "";
+  position: absolute;
+  top: 1%;
+  right: -3px;
+  width: 3px;
+  height: 98%;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--paper-50) 70%, white),
+    color-mix(in srgb, var(--paper-100) 85%, white)
+  );
+  border-radius: 0 1px 1px 0;
+  pointer-events: none;
+}
+
+.starter-kit__cover-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.starter-kit__form-col {
+  min-width: 0;
+}
+
+.starter-kit__title {
+  font: var(--type-h2);
+  color: var(--text-heading);
+  margin: 0 0 var(--space-4);
+  max-width: var(--measure-section-title);
+  text-wrap: pretty;
+}
+
+.starter-kit__sub {
+  font: var(--type-lead);
+  color: var(--text-body);
+  margin: 0 0 var(--space-6);
+  max-width: var(--measure-body);
+  text-wrap: pretty;
+}
+
+.starter-kit-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--starter-kit-form-gap);
+}
+
+.starter-kit-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.starter-kit-form__input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-body);
+  background: var(--surface-card);
+  border: var(--border-w) solid var(--border-default);
+  border-radius: var(--radius-md);
+  transition: border-color var(--dur-base) var(--ease-calm);
+}
+
+.starter-kit-form__input::placeholder {
+  color: var(--text-faint);
+}
+
+.starter-kit-form__input:focus {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-color: var(--border-strong);
+}
+
+.starter-kit-form__input[aria-invalid="true"] {
+  border-color: var(--clay-600);
+}
+
+.starter-kit-form__error {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--clay-600);
+  text-wrap: pretty;
+}
+
+.starter-kit-form__fine {
+  margin: 0;
+}
+
+.starter-kit-form__submit {
+  align-self: flex-start;
+}
+
+.starter-kit-form__submit:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.starter-kit-form__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.starter-kit-form__network-error {
+  margin: 0;
+  padding: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-body);
+  background: var(--clay-100);
+  border-radius: var(--radius-md);
+  text-wrap: pretty;
+}
+
+.starter-kit__success-title {
+  font: var(--type-h3);
+  color: var(--text-heading);
+  margin: 0 0 var(--space-3);
+  text-wrap: pretty;
+}
+
+.starter-kit__success-body {
+  font: var(--type-body);
+  color: var(--text-body);
+  margin: 0;
+  max-width: var(--measure-body);
+  text-wrap: pretty;
 }
 
 /* Closing CTA */
@@ -1183,6 +1350,16 @@ a:hover {
   .grid-features {
     grid-template-columns: 1fr;
     gap: var(--space-6);
+  }
+
+  .starter-kit__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+
+  .starter-kit__cover-col {
+    order: -1;
+    padding: var(--space-4) var(--space-6) 0;
   }
 
   .section {

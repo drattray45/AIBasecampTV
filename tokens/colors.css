@@ -80,13 +80,15 @@
 
   /* Footer newsletter — quiet utility form */
   --footer-wordmark: var(--teal-800);
-  --footer-social-color: var(--tool-logo-ink);
-  --footer-social-color-hover: var(--brown-500);
+  --footer-social-bg: var(--footer-wordmark);
+  --footer-social-bg-hover: var(--teal-700);
+  --footer-social-icon-color: var(--mist-50);
+  --footer-social-icon-color-hover: var(--accent);
   --footer-input-bg: var(--surface-raised);
   --footer-input-border: var(--border-default);
-  --footer-submit-bg: var(--teal-800);
-  --footer-submit-bg-hover: var(--teal-700);
-  --footer-submit-text: var(--mist-50);
+  --footer-submit-bg: color-mix(in srgb, var(--footer-wordmark) 11%, var(--paper-100));
+  --footer-submit-bg-hover: color-mix(in srgb, var(--footer-wordmark) 16%, var(--paper-100));
+  --footer-submit-text: var(--footer-wordmark);
 
   /* Lead magnet — kraft / manila step between cream FAQ and beacon CTA */
   --surface-sand:        color-mix(in srgb, var(--paper-300) 58%, var(--brown-300));

@@ -121,10 +121,7 @@
   --starter-kit-form-max:       25rem;
   --starter-kit-form-gap:       var(--space-4);
 
-  /* Footer social icons */
-  --social-icon-size:           2.25rem;
-  --social-icon-size-youtube:   2.875rem;
-  --social-icon-gap:            var(--space-4);
-  --footer-social-icon-size:    1.375rem;
-  --footer-social-icon-gap:     var(--space-3);
+  /* Footer social icons — classic brand tiles */
+  --social-icon-gap:             var(--space-4);
+  --footer-social-icon-size:     2.5rem;
 }

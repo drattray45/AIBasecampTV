@@ -718,30 +718,22 @@ function StarterKitSection() {
 
 function YouTubeIcon() {
   return (
-    <svg className="site-footer__social-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M10 15.464V8.536L16.818 12 10 15.464z"
-      />
+    <svg className="site-footer__social-icon site-footer__social-icon--youtube" viewBox="0 0 28 28" aria-hidden="true">
+      <rect width="28" height="28" rx="5" fill="var(--footer-social-bg)" />
+      <path fill="var(--footer-social-icon-color)" d="M11 18V10l8 4-8 4z" />
     </svg>
   );
 }
 
 function LinkedInIcon() {
   return (
-    <svg className="site-footer__social-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z"
-      />
-      <path
-        fill="currentColor"
-        d="M5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124z"
-      />
-      <path
-        fill="currentColor"
-        d="M7.119 20.452H3.555V9h3.564v11.452z"
-      />
+    <svg className="site-footer__social-icon site-footer__social-icon--linkedin" viewBox="0 0 28 28" aria-hidden="true">
+      <rect width="28" height="28" rx="5" fill="var(--footer-social-bg)" />
+      <g fill="var(--footer-social-icon-color)" transform="translate(5 5) scale(0.75)">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z" />
+        <path d="M5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124z" />
+        <path d="M7.119 20.452H3.555V9h3.564v11.452z" />
+      </g>
     </svg>
   );
 }
@@ -751,7 +743,7 @@ function FooterSocial() {
     <div className="site-footer__social">
       <a
         href={YOUTUBE_CHANNEL_URL}
-        className="site-footer__social-link"
+        className="site-footer__social-link site-footer__social-link--youtube"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="AIBasecamp.TV on YouTube"

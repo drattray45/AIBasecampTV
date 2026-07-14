@@ -74,6 +74,15 @@
   --accent-press:      var(--amber-600);
   --accent-quiet:      #fbf0d2;          /* amber tint wash, rare */
 
+  /* Lead magnet — kraft / manila step between cream FAQ and beacon CTA */
+  --surface-sand:        color-mix(in srgb, var(--paper-300) 58%, var(--brown-300));
+  --surface-sand-edge:   color-mix(in srgb, var(--brown-700) 14%, transparent);
+  --surface-sand-inset:  inset 0 1px 0 color-mix(in srgb, var(--brown-700) 8%, transparent);
+
+  /* Book contact + ambient shadows on sand */
+  --starter-kit-shadow-contact: 0 2px 5px color-mix(in srgb, var(--brown-700) 34%, transparent);
+  --starter-kit-shadow-ambient: 0 18px 44px color-mix(in srgb, var(--brown-700) 14%, transparent);
+
   /* Tools bar headlamp sweep — warm light on paper (tint + brightness lift, not opaque amber) */
   --tools-beam-tint-soft: color-mix(in srgb, var(--accent-quiet) 38%, transparent);
   --tools-beam-tint-mid:  color-mix(in srgb, var(--amber-glow) 7%, transparent);

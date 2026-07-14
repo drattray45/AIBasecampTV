@@ -1733,7 +1733,8 @@ a:hover {
 /* Mobile nav + layout (768px and below) */
 @media (max-width: 768px) {
   :root {
-    --nav-mark-size: 3.25rem;
+    --nav-mark-size: 3.75rem;
+    --pad-header-y: var(--space-3);
     --tool-logo-size: 2.625rem;
     --tool-logo-size-chatgpt: 3.125rem;
     --tool-pill-font-size: var(--text-sm);
@@ -1777,13 +1778,14 @@ a:hover {
   }
 
   .site-logo .logo__mark-wrap--lamp {
-    width: 3.25rem !important;
-    height: 3.25rem !important;
+    width: var(--nav-mark-size) !important;
+    height: var(--nav-mark-size) !important;
     flex-shrink: 0;
   }
 
   .site-logo {
-    font-size: 1.0625rem !important;
+    font-size: 1.25rem !important;
+    gap: 0.5rem !important;
   }
 
   .hero-beacon__inner {
@@ -1927,7 +1929,8 @@ a:hover {
 
 @media (max-width: 390px) {
   :root {
-    --nav-mark-size: 2.75rem;
+    --nav-mark-size: 3.25rem;
+    --pad-header-y: var(--space-3);
   }
 
   .site-header__inner {
@@ -1936,12 +1939,13 @@ a:hover {
   }
 
   .site-logo .logo__mark-wrap--lamp {
-    width: 2.75rem !important;
-    height: 2.75rem !important;
+    width: var(--nav-mark-size) !important;
+    height: var(--nav-mark-size) !important;
   }
 
   .site-logo {
-    font-size: 0.9375rem !important;
+    font-size: 1.125rem !important;
+    gap: 0.4375rem !important;
   }
 
   .hero-beacon__inner {
@@ -1960,7 +1964,8 @@ a:hover {
 
 @media (max-width: 360px) {
   :root {
-    --nav-mark-size: 2.5rem;
+    --nav-mark-size: 3rem;
+    --pad-header-y: var(--space-3);
   }
 
   .site-header__inner {
@@ -1968,12 +1973,13 @@ a:hover {
   }
 
   .site-logo .logo__mark-wrap--lamp {
-    width: 2.5rem !important;
-    height: 2.5rem !important;
+    width: var(--nav-mark-size) !important;
+    height: var(--nav-mark-size) !important;
   }
 
   .site-logo {
-    font-size: 0.9375rem !important;
+    font-size: 1.0625rem !important;
+    gap: 0.4375rem !important;
   }
 }
 

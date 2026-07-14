@@ -304,7 +304,11 @@ function HeroHeadlampBeam() {
 function BeaconCtaScape() {
   return (
     <div className="beacon-scape beacon-scape--cta" aria-hidden="true">
-      <svg className="beacon-scape__svg beacon-scape__svg--cta" viewBox="0 0 1200 280" preserveAspectRatio="none">
+      <svg
+        className="beacon-scape__svg beacon-scape__svg--stars"
+        viewBox="0 0 1200 100"
+        preserveAspectRatio="none"
+      >
         <g className="beacon-scape__stars">
           <circle cx="94" cy="42" r="0.9" />
           <circle cx="218" cy="28" r="0.65" />
@@ -321,17 +325,23 @@ function BeaconCtaScape() {
           <circle cx="656" cy="52" r="0.5" />
           <circle cx="889" cy="24" r="0.75" />
         </g>
+      </svg>
+      <svg
+        className="beacon-scape__svg beacon-scape__svg--cta-range"
+        viewBox="0 0 1200 180"
+        preserveAspectRatio="none"
+      >
         <path
           className="beacon-scape__ridge beacon-scape__ridge--cta-back"
-          d="M0 280 L0 236 L108 226 L158 196 L292 254 L500 268 L600 270 L700 266 L912 252 L1048 198 L1098 242 L1200 248 L1200 280 Z"
+          d="M0 180 L0 148 L65 146 L125 136 L188 128 L248 134 L328 144 L448 148 L598 144 L712 148 L808 144 L892 136 L958 132 L1022 138 L1088 144 L1200 142 L1200 180 Z"
         />
         <path
           className="beacon-scape__ridge beacon-scape__ridge--cta-mid"
-          d="M0 280 L0 250 L88 244 L142 220 L272 262 L482 272 L600 274 L718 270 L882 258 L1032 226 L1112 256 L1200 260 L1200 280 Z"
+          d="M0 180 L0 130 L40 126 L82 106 L104 58 L138 40 L164 36 L188 76 L214 56 L244 70 L272 56 L308 96 L358 120 L438 136 L538 142 L598 146 L678 140 L758 136 L818 130 L858 116 L892 106 L926 116 L956 110 L988 123 L1034 130 L1098 126 L1200 128 L1200 180 Z"
         />
         <path
           className="beacon-scape__ridge beacon-scape__ridge--cta-front"
-          d="M0 280 L0 264 L68 260 L122 246 L244 270 L422 276 L600 278 L778 274 L942 264 L1082 246 L1152 266 L1200 270 L1200 280 Z"
+          d="M0 180 L0 106 L28 100 L62 80 L96 46 L116 62 L138 40 L158 56 L174 42 L198 66 L218 50 L244 76 L272 90 L318 110 L398 126 L498 136 L598 134 L660 136 L720 130 L790 122 L850 110 L888 96 L918 106 L942 94 L972 106 L1008 116 L1070 110 L1200 114 L1200 180 Z"
         />
       </svg>
     </div>

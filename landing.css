@@ -572,11 +572,18 @@ a:hover {
   opacity: 1;
 }
 
-.beacon-scape--cta .beacon-scape__svg--cta {
+.beacon-scape--cta .beacon-scape__svg--stars {
   position: absolute;
   inset: 0;
   height: 100%;
-  filter: blur(0.65px);
+}
+
+.beacon-scape--cta .beacon-scape__svg--cta-range {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 35%;
+  max-height: 10rem;
 }
 
 .beacon-scape__stars circle {
@@ -585,14 +592,20 @@ a:hover {
 
 .beacon-scape__ridge--cta-back {
   fill: var(--beacon-ridge-cta-back);
+  filter: blur(1.4px);
+  opacity: 0.65;
 }
 
 .beacon-scape__ridge--cta-mid {
   fill: var(--beacon-ridge-cta-mid);
+  filter: blur(0.7px);
+  opacity: 0.82;
 }
 
 .beacon-scape__ridge--cta-front {
   fill: var(--beacon-ridge-cta-front);
+  filter: blur(0.25px);
+  opacity: 1;
 }
 
 .hero-beacon__inner {
@@ -1270,7 +1283,7 @@ a:hover {
 .cta-beacon__inner {
   position: relative;
   z-index: 1;
-  padding: var(--space-10) var(--pad-inline-page) calc(var(--space-10) + 10rem);
+  padding: var(--space-9) var(--pad-inline-page);
 }
 
 .cta-beacon__title {

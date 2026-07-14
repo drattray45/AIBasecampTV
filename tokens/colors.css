@@ -151,9 +151,9 @@
   --beacon-ridge-hero-back:   color-mix(in srgb, var(--teal-800) 20%, transparent);
   --beacon-ridge-hero-mid:    color-mix(in srgb, var(--teal-850) 32%, transparent);
   --beacon-ridge-hero-front:  color-mix(in srgb, var(--teal-950) 80%, transparent);
-  --beacon-ridge-cta-back:    color-mix(in srgb, var(--teal-900) 58%, transparent);
-  --beacon-ridge-cta-mid:     color-mix(in srgb, var(--teal-850) 44%, transparent);
-  --beacon-ridge-cta-front:   color-mix(in srgb, var(--teal-800) 34%, transparent);
+  --beacon-ridge-cta-back:    color-mix(in srgb, var(--teal-800) 20%, transparent);
+  --beacon-ridge-cta-mid:     color-mix(in srgb, var(--teal-850) 32%, transparent);
+  --beacon-ridge-cta-front:   color-mix(in srgb, var(--teal-950) 80%, transparent);
   --beacon-star:              color-mix(in srgb, var(--mist-50) 20%, transparent);
 
   /* Hero headlamp beam — amber in air only, very low opacity */

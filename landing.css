@@ -833,6 +833,14 @@ a:hover {
   color: var(--text-heading);
 }
 
+.demo-card__cue {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+
 /* Tools bar */
 .tools-bar {
   background: var(--surface-raised);

@@ -378,17 +378,20 @@ function Hero() {
               className="hero-beacon__scout"
             />
             <Card tone="beacon" elevated className="hero-beacon__demo">
-              <div className="demo-card__eyebrow">A real answer you can read</div>
+              <div className="demo-card__eyebrow">Ask about something you already know</div>
               <Textarea
                 monospace
                 readOnly
                 rows={3}
                 style={{ background: "var(--surface-sunken)", color: "var(--text-body)", borderColor: "var(--border-default)" }}
-                value="Explain growing tomatoes to a beginner, and name one common mistake people make."
+                value="Explain how to make good pizza dough to a beginner, and name one common mistake people make."
               />
               <div className="demo-card__answer">
-                Start seeds indoors 6–8 weeks before the last frost, give them full sun, and water at the base, not the leaves. <strong>The most common mistake:</strong> planting outside too early, when a late frost can undo all your work.
+                Use strong bread flour, let the dough rise slowly, and give it time to relax before you shape it. <strong>The most common mistake:</strong> not letting the dough rest long enough, so it fights back when you stretch it and springs into a thick, tough base.
               </div>
+              <p className="demo-card__cue">
+                If you have ever made dough, you can tell straight away whether that is right. That is the whole skill.
+              </p>
             </Card>
           </div>
         </div>

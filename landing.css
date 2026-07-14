@@ -1346,8 +1346,8 @@ a:hover {
 }
 
 .site-footer__logo .logo__mark--circle {
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 3.25rem !important;
+  height: 3.25rem !important;
 }
 
 .site-footer__logo > span:last-of-type,
@@ -1367,8 +1367,8 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--social-icon-gap);
-  margin-top: var(--space-4);
+  gap: var(--footer-social-icon-gap);
+  margin-top: var(--space-3);
 }
 
 .site-footer__social-link {
@@ -1392,13 +1392,9 @@ a:hover {
 
 .site-footer__social-icon {
   display: block;
-  width: var(--social-icon-size);
-  height: var(--social-icon-size);
-}
-
-.site-footer__social-icon--youtube {
-  width: var(--social-icon-size-youtube);
-  height: var(--social-icon-size-youtube);
+  width: var(--footer-social-icon-size);
+  height: var(--footer-social-icon-size);
+  flex-shrink: 0;
 }
 
 .site-footer__nav {
@@ -1502,16 +1498,18 @@ a:hover {
   flex-shrink: 0;
   font-size: var(--text-2xs);
   font-weight: var(--fw-semibold);
+  background: var(--footer-submit-bg) !important;
   color: var(--footer-wordmark) !important;
-  border-color: var(--footer-wordmark) !important;
-  box-shadow: none;
+  border-color: var(--footer-submit-border) !important;
+  box-shadow: var(--shadow-sm);
 }
 
 .site-footer-newsletter__submit:hover,
 .site-footer-newsletter__submit:focus-visible {
-  color: var(--footer-social-color-hover) !important;
-  border-color: var(--footer-social-color-hover) !important;
-  box-shadow: none;
+  background: var(--footer-submit-bg-hover) !important;
+  color: var(--footer-wordmark) !important;
+  border-color: var(--footer-submit-border) !important;
+  box-shadow: var(--shadow-sm);
   transform: none;
 }
 
@@ -1921,9 +1919,19 @@ a:hover {
     align-items: stretch;
   }
 
+  .site-footer-newsletter__input {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 3.125rem;
+    min-height: 3.125rem;
+    max-height: 3.125rem;
+    font-size: var(--text-sm);
+  }
+
   .site-footer-newsletter__submit {
     width: 100%;
-    min-height: var(--tap-target-min);
+    min-height: 3.125rem;
+    font-size: var(--text-sm);
   }
 }
 
@@ -1955,6 +1963,11 @@ a:hover {
 
   .hero-beacon__title {
     font-size: 1.375rem;
+  }
+
+  .site-footer__logo .logo__mark--circle {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
   }
 
   .tools-bar__chips {

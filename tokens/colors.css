@@ -78,10 +78,13 @@
   --social-icon-color: var(--tool-logo-ink);
   --social-icon-color-hover: var(--brown-500);
 
-  /* Footer — deep teal wordmark + social on warm paper */
+  /* Footer — deep teal wordmark; social matches quiet tool-logo ink */
   --footer-wordmark: var(--teal-800);
-  --footer-social-color: var(--teal-800);
-  --footer-social-color-hover: var(--teal-700);
+  --footer-social-color: var(--tool-logo-ink);
+  --footer-social-color-hover: var(--brown-500);
+  --footer-submit-bg: color-mix(in srgb, var(--footer-wordmark) 9%, var(--paper-100));
+  --footer-submit-bg-hover: color-mix(in srgb, var(--footer-wordmark) 14%, var(--paper-100));
+  --footer-submit-border: color-mix(in srgb, var(--footer-wordmark) 20%, var(--paper-300));
 
   /* Lead magnet — kraft / manila step between cream FAQ and beacon CTA */
   --surface-sand:        color-mix(in srgb, var(--paper-300) 58%, var(--brown-300));

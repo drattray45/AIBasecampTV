@@ -119,4 +119,9 @@
   --starter-kit-section-y-bottom: var(--space-5);
   --starter-kit-form-max:       25rem;
   --starter-kit-form-gap:       var(--space-4);
+
+  /* Footer social icons */
+  --social-icon-size:           2.25rem;
+  --social-icon-size-youtube:   2.7rem;
+  --social-icon-gap:            var(--space-4);
 }

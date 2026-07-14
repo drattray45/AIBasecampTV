@@ -33,10 +33,13 @@ const SWIPEONE_NEWSLETTER_SUBMIT_URL = "https://api.swipeone.com/forms/6a560459a
 const SWIPEONE_NEWSLETTER_FIELD_EMAIL = "833591daea";
 const SWIPEONE_NEWSLETTER_FIELD_HONEYPOT = "_so_hp";
 
+const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@aibasecamptv";
+const SCOUT_INTRO_VIDEO_URL = "https://youtu.be/lGV4teiP0r0";
+
 const NAV_LINKS = [
   { href: "#how", label: "How it works" },
   { href: "#starter-kit", label: "The free kit" },
-  { href: "#watch", label: "Watch on YouTube" },
+  { href: YOUTUBE_CHANNEL_URL, label: "Watch on YouTube", external: true },
 ];
 
 function isValidEmail(value) {
@@ -142,7 +145,14 @@ function Header() {
 
         <nav className="site-nav site-nav--desktop" aria-label="Primary">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="site-nav__link">{link.label}</a>
+            <a
+              key={link.href}
+              href={link.href}
+              className="site-nav__link"
+              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {link.label}
+            </a>
           ))}
           <Button variant="primary" size="md" as="a" href={STARTER_KIT_ANCHOR}>Get my free Starter Kit</Button>
         </nav>
@@ -199,7 +209,12 @@ function Header() {
         <ul className="site-nav__mobile-links">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a href={link.href} className="site-nav__mobile-link" onClick={handleNavLink}>
+              <a
+                href={link.href}
+                className="site-nav__mobile-link"
+                onClick={handleNavLink}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
                 {link.label}
               </a>
             </li>
@@ -615,7 +630,15 @@ function LandingPage() {
           <h2 className="cta-beacon__title">Start with one thing you already{"\u00A0"}know.</h2>
           <Button variant="primary" size="lg" as="a" href={STARTER_KIT_ANCHOR}>Get my free Starter Kit</Button>
           <div className="cta-beacon__alt">
-            <Button variant="quiet" as="a" href="#">Or watch a 2-minute Scout video first</Button>
+            <Button
+              variant="quiet"
+              as="a"
+              href={SCOUT_INTRO_VIDEO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Or watch a 3-minute Scout video first
+            </Button>
           </div>
         </div>
       </section>

@@ -366,7 +366,7 @@ function Hero() {
           <p className="hero-beacon__lead">
             Free, friendly lessons for non-technical people, guided by Scout, who already did the confusing part for you. No tech skills, no jargon.
           </p>
-          <Button variant="primary" size="lg" as="a" href={STARTER_KIT_ANCHOR}>Get my free Starter Kit</Button>
+          <Button variant="primary" size="lg" className="hero-beacon__cta" as="a" href={STARTER_KIT_ANCHOR}>Get my free Starter Kit</Button>
           <div className="hero-beacon__meta">Free · No tech skills · No sign-up to look</div>
         </div>
         <div className="hero-beacon__visual">

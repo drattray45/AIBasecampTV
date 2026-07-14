@@ -146,4 +146,23 @@
   --beacon-gradient: radial-gradient(120% 90% at 78% 42%, var(--teal-700) 0%, var(--teal-850) 42%, var(--teal-950) 100%);
   /* the headlamp beam glow — for placing behind Scout */
   --headlamp-beam: radial-gradient(closest-side, rgba(255,210,74,.28), rgba(255,210,74,0) 70%); /* @kind other */
+
+  /* Beacon ridgelines — teal on teal, atmospheric only */
+  --beacon-ridge-hero-back:   color-mix(in srgb, var(--teal-800) 20%, transparent);
+  --beacon-ridge-hero-mid:    color-mix(in srgb, var(--teal-850) 32%, transparent);
+  --beacon-ridge-hero-front:  color-mix(in srgb, var(--teal-950) 80%, transparent);
+  --beacon-ridge-cta-back:    color-mix(in srgb, var(--teal-900) 58%, transparent);
+  --beacon-ridge-cta-mid:     color-mix(in srgb, var(--teal-850) 44%, transparent);
+  --beacon-ridge-cta-front:   color-mix(in srgb, var(--teal-800) 34%, transparent);
+  --beacon-star:              color-mix(in srgb, var(--mist-50) 20%, transparent);
+
+  /* Hero headlamp beam — amber in air only, very low opacity */
+  --beacon-headlamp-beam-hot:  color-mix(in srgb, var(--amber-glow) 13%, transparent);
+  --beacon-headlamp-beam-core: color-mix(in srgb, var(--amber-glow) 8%, transparent);
+  --beacon-headlamp-beam-mid:  color-mix(in srgb, var(--amber-glow) 3.5%, transparent);
+  --beacon-headlamp-beam-haze: color-mix(in srgb, var(--amber-glow) 2%, transparent);
+  --beacon-headlamp-beam-wash-hot: color-mix(in srgb, var(--amber-glow) 16%, transparent);
+  --beacon-headlamp-beam-wash: color-mix(in srgb, var(--amber-glow) 8%, transparent);
+  --beam-glow-rest:            0.82;
+  --beam-wash-rest:            0.9;
 }

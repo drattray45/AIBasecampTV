@@ -232,9 +232,116 @@ function Header() {
   );
 }
 
+function BeaconHeroScape() {
+  return (
+    <div className="beacon-scape beacon-scape--hero" aria-hidden="true">
+      <svg
+        className="beacon-scape__svg beacon-scape__svg--range"
+        viewBox="0 0 1200 180"
+        preserveAspectRatio="none"
+      >
+        <path
+          className="beacon-scape__ridge beacon-scape__ridge--hero-back"
+          d="M0 180 L0 152 L72 150 L138 140 L198 132 L258 138 L338 148 L458 152 L600 148 L718 152 L812 148 L898 140 L962 136 L1028 142 L1092 148 L1200 146 L1200 180 Z"
+        />
+        <path
+          className="beacon-scape__ridge beacon-scape__ridge--hero-mid"
+          d="M0 180 L0 132 L44 128 L86 108 L108 62 L142 44 L168 38 L192 78 L218 58 L248 72 L276 58 L312 98 L362 122 L442 138 L542 144 L600 148 L682 142 L762 138 L822 132 L862 118 L896 108 L930 118 L960 112 L992 125 L1038 132 L1102 128 L1200 130 L1200 180 Z"
+        />
+        <path
+          className="beacon-scape__ridge beacon-scape__ridge--hero-front"
+          d="M0 180 L0 108 L30 102 L66 82 L98 48 L118 64 L140 42 L160 58 L176 44 L200 68 L220 52 L246 78 L274 92 L322 112 L402 128 L502 138 L600 136 L662 138 L722 132 L792 124 L852 112 L890 98 L920 108 L944 96 L974 108 L1010 118 L1072 112 L1200 118 L1200 180 Z"
+        />
+      </svg>
+    </div>
+  );
+}
+
+function HeroHeadlampBeam() {
+  return (
+    <svg
+      className="hero-beacon__beam"
+      viewBox="0 0 500 400"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="hero-beam-cone" gradientUnits="userSpaceOnUse" x1="430" y1="18" x2="260" y2="320">
+          <stop offset="0%" stopColor="var(--beacon-headlamp-beam-hot)" />
+          <stop offset="18%" stopColor="var(--beacon-headlamp-beam-core)" />
+          <stop offset="42%" stopColor="var(--beacon-headlamp-beam-mid)" />
+          <stop offset="72%" stopColor="var(--beacon-headlamp-beam-haze)" />
+          <stop offset="100%" stopColor="transparent" />
+        </linearGradient>
+        <linearGradient id="hero-beam-haze" gradientUnits="userSpaceOnUse" x1="425" y1="12" x2="200" y2="360">
+          <stop offset="0%" stopColor="var(--beacon-headlamp-beam-haze)" />
+          <stop offset="35%" stopColor="var(--beacon-headlamp-beam-mid)" />
+          <stop offset="100%" stopColor="transparent" />
+        </linearGradient>
+        <filter id="hero-beam-blur-wide" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="18" />
+        </filter>
+        <filter id="hero-beam-blur-core" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="10" />
+        </filter>
+      </defs>
+      <path
+        className="hero-beacon__beam-shape hero-beacon__beam-shape--haze"
+        filter="url(#hero-beam-blur-wide)"
+        fill="url(#hero-beam-haze)"
+        d="M430 16 L448 38 L72 392 L195 392 L340 392 L430 46 Z"
+      />
+      <path
+        className="hero-beacon__beam-shape hero-beacon__beam-shape--core"
+        filter="url(#hero-beam-blur-core)"
+        fill="url(#hero-beam-cone)"
+        d="M430 18 L442 34 L155 388 L285 388 L385 388 L430 40 Z"
+      />
+    </svg>
+  );
+}
+
+function BeaconCtaScape() {
+  return (
+    <div className="beacon-scape beacon-scape--cta" aria-hidden="true">
+      <svg className="beacon-scape__svg beacon-scape__svg--cta" viewBox="0 0 1200 280" preserveAspectRatio="none">
+        <g className="beacon-scape__stars">
+          <circle cx="94" cy="42" r="0.9" />
+          <circle cx="218" cy="28" r="0.65" />
+          <circle cx="361" cy="54" r="0.8" />
+          <circle cx="447" cy="22" r="0.55" />
+          <circle cx="583" cy="38" r="0.75" />
+          <circle cx="708" cy="18" r="0.6" />
+          <circle cx="831" cy="48" r="0.85" />
+          <circle cx="972" cy="31" r="0.7" />
+          <circle cx="1086" cy="44" r="0.6" />
+          <circle cx="1143" cy="26" r="0.5" />
+          <circle cx="156" cy="62" r="0.55" />
+          <circle cx="502" cy="15" r="0.65" />
+          <circle cx="656" cy="52" r="0.5" />
+          <circle cx="889" cy="24" r="0.75" />
+        </g>
+        <path
+          className="beacon-scape__ridge beacon-scape__ridge--cta-back"
+          d="M0 280 L0 236 L108 226 L158 196 L292 254 L500 268 L600 270 L700 266 L912 252 L1048 198 L1098 242 L1200 248 L1200 280 Z"
+        />
+        <path
+          className="beacon-scape__ridge beacon-scape__ridge--cta-mid"
+          d="M0 280 L0 250 L88 244 L142 220 L272 262 L482 272 L600 274 L718 270 L882 258 L1032 226 L1112 256 L1200 260 L1200 280 Z"
+        />
+        <path
+          className="beacon-scape__ridge beacon-scape__ridge--cta-front"
+          d="M0 280 L0 264 L68 260 L122 246 L244 270 L422 276 L600 278 L778 274 L942 264 L1082 246 L1152 266 L1200 270 L1200 280 Z"
+        />
+      </svg>
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <section className="hero-beacon">
+      <BeaconHeroScape />
       <div className="container hero-beacon__inner">
         <div className="hero-beacon__content">
           <div className="hero-beacon__badges">
@@ -254,6 +361,7 @@ function Hero() {
         </div>
         <div className="hero-beacon__visual">
           <div className="hero-beacon__composition">
+            <HeroHeadlampBeam />
             <img
               src={SCOUT}
               alt="Scout, headlamp glowing on a mountain-night"
@@ -672,6 +780,7 @@ function LandingPage() {
       </Section>
 
       <section id="watch" className="beacon cta-beacon">
+        <BeaconCtaScape />
         <div className="container--cta cta-beacon__inner">
           <h2 className="cta-beacon__title">
             You were never behind. You were handed AI in the wrong order.

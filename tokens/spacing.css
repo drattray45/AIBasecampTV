@@ -52,6 +52,7 @@
   /* Landing layout */
   --header-z:             100;
   --hero-scout-z:         20;
+  --hero-beam-z:          15;
   --hero-card-z:          10;
   --nav-panel-z:          140;
   --modal-z:              150;

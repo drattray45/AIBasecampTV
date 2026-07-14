@@ -111,16 +111,12 @@
   --hero-scout-overlap:       0.30;
   --hero-scout-outset:        0.14;
 
-  /* Starter Kit lead magnet scene */
+  /* Starter Kit lead magnet */
   --starter-kit-cover-rotate:   3.5deg;
   --starter-kit-cover-max:      16.5rem;
-  --starter-kit-scene-width:      27rem;
   --starter-kit-grid-gap:       var(--space-5);
-  --starter-kit-section-y:      var(--space-7);
-  --starter-kit-scout-width:    13rem;
-  --starter-kit-cover-z:        1;
-  --starter-kit-scout-z:        3;
+  --starter-kit-section-y-top:  var(--space-6);
+  --starter-kit-section-y-bottom: var(--space-5);
   --starter-kit-form-max:       25rem;
   --starter-kit-form-gap:       var(--space-4);
-  --starter-kit-visual-lift:    var(--space-6);
 }

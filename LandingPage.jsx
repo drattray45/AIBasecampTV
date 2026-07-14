@@ -425,21 +425,13 @@ function StarterKitSection() {
     <section id="starter-kit" className="starter-kit" aria-labelledby="starter-kit-heading">
       <div className="starter-kit__inner">
         <div className="starter-kit__visual-col">
-          <div className="starter-kit__composition">
-            <div className="starter-kit__cover">
-              <img
-                src={STARTER_KIT_COVER}
-                alt="Cover of the Your first 5 AI wins Starter Kit booklet"
-                className="starter-kit__cover-img"
-                width={280}
-                height={360}
-              />
-            </div>
+          <div className="starter-kit__cover">
             <img
-              src={SCOUT}
-              alt=""
-              aria-hidden="true"
-              className="starter-kit__scout"
+              src={STARTER_KIT_COVER}
+              alt="Cover of the Your first 5 AI wins Starter Kit booklet"
+              className="starter-kit__cover-img"
+              width={280}
+              height={360}
             />
           </div>
         </div>
@@ -457,7 +449,7 @@ function StarterKitSection() {
           ) : (
             <>
               <h2 id="starter-kit-heading" className="starter-kit__title">
-                Your first 5 AI wins.
+                Start where you already know things.
               </h2>
               <p className="starter-kit__sub">
                 Five real tasks, in the order that does not lose people. Do one a day and you are using AI for real by Friday. No cost, nothing to install, no rush.

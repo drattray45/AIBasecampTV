@@ -27,6 +27,12 @@ const SWIPEONE_FIELD_FIRST_NAME = "cb9c3a2658";
 const SWIPEONE_FIELD_EMAIL = "7eab9fd5ad";
 const SWIPEONE_FIELD_HONEYPOT = "_so_hp";
 
+// SwipeOne footer newsletter — separate form from Starter Kit (different CRM segment).
+// Field hashes will change if the form is rebuilt in SwipeOne, which breaks submission silently.
+const SWIPEONE_NEWSLETTER_SUBMIT_URL = "https://api.swipeone.com/forms/6a560459ac97da23d7430add/submit";
+const SWIPEONE_NEWSLETTER_FIELD_EMAIL = "833591daea";
+const SWIPEONE_NEWSLETTER_FIELD_HONEYPOT = "_so_hp";
+
 const NAV_LINKS = [
   { href: "#how", label: "How it works" },
   { href: "#starter-kit", label: "The free kit" },
@@ -634,20 +640,62 @@ function LandingPage() {
 
 function FooterNewsletter() {
   const [email, setEmail] = React.useState("");
+  const [honeypot, setHoneypot] = React.useState("");
   const [done, setDone] = React.useState(false);
   const [error, setError] = React.useState("");
+  const [networkError, setNetworkError] = React.useState("");
+  const [submitting, setSubmitting] = React.useState(false);
   const inputId = "footer-newsletter-email";
   const statusId = "footer-newsletter-status";
 
-  const handleSubmit = (event) => {
+  const validateEmail = (value) => {
+    if (!value.trim()) return "An email address helps Scout reach you.";
+    if (!isValidEmail(value)) return "That address does not look right. Mind checking it?";
+    return "";
+  };
+
+  const handleEmailBlur = () => {
+    setError(validateEmail(email));
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!isValidEmail(email)) {
-      setError("That address doesn't look right. Mind checking it?");
-      return;
+    setNetworkError("");
+
+    const emailError = validateEmail(email);
+    setError(emailError);
+    if (emailError) return;
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(SWIPEONE_NEWSLETTER_SUBMIT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          [SWIPEONE_NEWSLETTER_FIELD_EMAIL]: email.trim(),
+          [SWIPEONE_NEWSLETTER_FIELD_HONEYPOT]: honeypot,
+          _pageUrl: window.location.href,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (data.status === "success") {
+        setDone(true);
+        return;
+      }
+
+      setNetworkError(
+        typeof data.message === "string" && data.message.trim()
+          ? data.message
+          : "Something did not go through on our end. Mind trying once more?"
+      );
+    } catch {
+      setNetworkError("We could not reach the server right now. Mind trying once more in a moment?");
+    } finally {
+      setSubmitting(false);
     }
-    setError("");
-    // TODO: wire to email platform (Kit/ConvertKit/etc.) — footer newsletter list only
-    setDone(true);
   };
 
   return (
@@ -674,28 +722,51 @@ function FooterNewsletter() {
               name="email"
               autoComplete="email"
               inputMode="email"
+              required
               placeholder="you@example.com"
               value={email}
               onChange={(event) => {
                 setEmail(event.target.value);
                 if (error) setError("");
+                if (networkError) setNetworkError("");
               }}
+              onBlur={handleEmailBlur}
               aria-invalid={error ? "true" : undefined}
-              aria-describedby={error ? statusId : "footer-newsletter-fine"}
+              aria-describedby={
+                error || networkError ? statusId : "footer-newsletter-fine"
+              }
             />
             <Button
               variant="primary"
               size="md"
               type="submit"
               className="site-footer-newsletter__submit"
+              disabled={submitting}
+              aria-busy={submitting || undefined}
               style={{ boxShadow: "none" }}
             >
-              Send me Scout's notes
+              {submitting ? "Sending…" : "Send me Scout's notes"}
             </Button>
           </div>
+
+          <input
+            type="text"
+            name={SWIPEONE_NEWSLETTER_FIELD_HONEYPOT}
+            className="site-footer-newsletter__hp"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            value={honeypot}
+            onChange={(event) => setHoneypot(event.target.value)}
+          />
+
           {error ? (
             <p id={statusId} className="site-footer-newsletter__error" role="alert" aria-live="polite">
               {error}
+            </p>
+          ) : networkError ? (
+            <p id={statusId} className="site-footer-newsletter__error" role="alert" aria-live="polite">
+              {networkError}
             </p>
           ) : (
             <p id="footer-newsletter-fine" className="reassurance-line site-footer-newsletter__fine">

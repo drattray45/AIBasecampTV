@@ -47,6 +47,22 @@ function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 }
 
+function useMediaQuery(query) {
+  const [matches, setMatches] = React.useState(
+    () => typeof window !== "undefined" && window.matchMedia(query).matches
+  );
+
+  React.useEffect(() => {
+    const media = window.matchMedia(query);
+    const onChange = () => setMatches(media.matches);
+    onChange();
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, [query]);
+
+  return matches;
+}
+
 function Header() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -159,10 +175,6 @@ function Header() {
         </nav>
 
         <div className="site-header__mobile">
-          <Button variant="primary" size="md" className="site-header__cta" as="a" href={STARTER_KIT_ANCHOR} onClick={closeMenu}>
-            <span className="site-header__cta-label site-header__cta-label--short">Get the free kit</span>
-            <span className="site-header__cta-label site-header__cta-label--full">Get my free Starter Kit</span>
-          </Button>
           <button
             ref={hamburgerRef}
             type="button"
@@ -349,6 +361,8 @@ function BeaconCtaScape() {
 }
 
 function Hero() {
+  const hideHeroScout = useMediaQuery("(max-width: 960px)");
+
   return (
     <section className="hero-beacon">
       <BeaconHeroScape />
@@ -359,6 +373,7 @@ function Hero() {
             <Badge tone="neutral">No tech skills</Badge>
             <Badge tone="neutral">No sign-up to look</Badge>
           </div>
+          <p className="hero-beacon__cred-line">Free · No tech skills · No sign-up to look</p>
           <h1 className="hero-beacon__title">
             Feel behind on AI? You're not. Here's your{" "}
             <span className="hero-beacon__highlight">first{"\u00A0"}step</span>.
@@ -371,12 +386,14 @@ function Hero() {
         </div>
         <div className="hero-beacon__visual">
           <div className="hero-beacon__composition">
-            <HeroHeadlampBeam />
-            <img
-              src={SCOUT}
-              alt="Scout, headlamp glowing on a mountain-night"
-              className="hero-beacon__scout"
-            />
+            {!hideHeroScout && <HeroHeadlampBeam />}
+            {!hideHeroScout && (
+              <img
+                src={SCOUT}
+                alt="Scout, headlamp glowing on a mountain-night"
+                className="hero-beacon__scout"
+              />
+            )}
             <Card tone="beacon" elevated className="hero-beacon__demo">
               <div className="demo-card__eyebrow">Ask about something you already know</div>
               <Textarea

@@ -11,7 +11,6 @@ import {
   Callout,
   StepCard,
   FeatureCard,
-  PricingCard,
   FAQItem,
   Logo,
 } from "./_ds_bundle.js";
@@ -30,7 +29,7 @@ const SWIPEONE_FIELD_HONEYPOT = "_so_hp";
 
 const NAV_LINKS = [
   { href: "#how", label: "How it works" },
-  { href: "#kit", label: "The free kit" },
+  { href: "#starter-kit", label: "The free kit" },
   { href: "#watch", label: "Watch on YouTube" },
 ];
 
@@ -337,11 +336,6 @@ function Section({ id, eyebrow, title, sub, children, narrow, centered }) {
   );
 }
 
-function scrollToStarterKit(event) {
-  event?.preventDefault?.();
-  document.getElementById("starter-kit")?.scrollIntoView({ behavior: "smooth" });
-}
-
 function StarterKitSection() {
   const [firstName, setFirstName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -598,21 +592,13 @@ function LandingPage() {
         </Section>
       </div>
 
-      <Section id="kit" eyebrow="When you're ready (no rush, no subscription)" title={"A gentle, one-time ladder. The free kit is the\u00A0point."}>
-        <div className="grid-pricing">
-          <PricingCard featured amount="Free" name="Starter Kit" blurb="Your first 5 AI wins, in the right order." ctaLabel="Get my free Starter Kit" onCtaClick={scrollToStarterKit} />
-          <PricingCard amount="$17" name="The 5 AI Tasks pack" blurb="Every task written out with the exact words to type." ctaLabel="See what's inside" />
-          <PricingCard amount="$99" name="Founding course" blurb="The full Basecamp Path, founding price, backed by the 60-day promise." ctaLabel="Join the founding group" />
-        </div>
-      </Section>
-
       <Section eyebrow="Honest answers" title={"The questions you're actually\u00A0asking."} narrow centered>
         <Card tone="paper" className="faq-card">
           <FAQItem question={"Isn't all this free on YouTube\u00A0already?"} defaultOpen>The information is everywhere. That's part of why it's overwhelming. What's not free is the order, the exact words to type, and a guide who won't make you feel dumb. That's what the kit gives you.</FAQItem>
           <FAQItem question={"Am I too far behind to\u00A0start?"}>No. You weren't behind. You were handed AI in the wrong order. We start with one thing you already know, today.</FAQItem>
           <FAQItem question={"Do I need to be\u00A0technical?"}>If you can use email, you can do this. No coding, no setup, nothing to install.</FAQItem>
           <FAQItem question={"Do I have to pay for\u00A0ChatGPT?"}>No. Everything in the Starter Kit works on the free versions.</FAQItem>
-          <FAQItem question={"What if it doesn't click for\u00A0me?"}>Do the course and if it still doesn't click, email us within 60 days for every penny back. If it didn't work, that's on us to teach better, not on you to try harder.</FAQItem>
+          <FAQItem question={"What if it doesn't click for\u00A0me?"}>Start with task one on something you already know, so you can tell if the answer's right. If you're still stuck, reply to the kit email and say where it lost you. We read those. If it didn't click, that's on us to teach better, not on you to try harder.</FAQItem>
         </Card>
       </Section>
 

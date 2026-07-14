@@ -43,6 +43,8 @@ const NAV_LINKS = [
   { href: YOUTUBE_CHANNEL_URL, label: "Watch on YouTube", external: true },
 ];
 
+const MOBILE_MENU_LINKS = NAV_LINKS.filter((link) => link.href !== STARTER_KIT_ANCHOR);
+
 function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 }
@@ -220,7 +222,7 @@ function Header() {
         </div>
 
         <ul className="site-nav__mobile-links">
-          {NAV_LINKS.map((link) => (
+          {MOBILE_MENU_LINKS.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
@@ -233,6 +235,10 @@ function Header() {
             </li>
           ))}
         </ul>
+
+        <div className="site-nav__panel-middle">
+          <p className="site-nav__panel-tagline">Start at basecamp. Climb with confidence.</p>
+        </div>
 
         <div className="site-nav__panel-footer">
           <Button variant="primary" size="lg" fullWidth as="a" href={STARTER_KIT_ANCHOR} onClick={handlePanelCta}>

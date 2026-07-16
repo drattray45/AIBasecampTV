@@ -2,6 +2,7 @@ import React from "react";
 import LandingPage from "./LandingPage.jsx";
 import TermsPage from "./TermsPage.jsx";
 import PrivacyPage from "./PrivacyPage.jsx";
+import { EntitySchema } from "./lib/seo/EntitySchema.jsx";
 
 function getPage() {
   const path = window.location.pathname.replace(/\/$/, "") || "/";
@@ -19,7 +20,10 @@ export default function App() {
     return () => window.removeEventListener("popstate", onNavigate);
   }, []);
 
-  if (page === "terms") return <TermsPage />;
-  if (page === "privacy") return <PrivacyPage />;
-  return <LandingPage />;
+  return (
+    <>
+      <EntitySchema />
+      {page === "terms" ? <TermsPage /> : page === "privacy" ? <PrivacyPage /> : <LandingPage />}
+    </>
+  );
 }

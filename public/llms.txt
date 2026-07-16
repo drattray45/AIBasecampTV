@@ -1,0 +1,14 @@
+# AIBasecamp
+
+> Free, friendly AI lessons for non-technical people, guided by Scout.
+
+AIBasecamp.TV is the home of the AIBasecamp YouTube channel: a calm, beginner-first path for adults who feel behind on AI. Scout, a friendly bear guide, leads free video lessons and a free Starter Kit so you can use AI for real everyday tasks without jargon or tech skills.
+
+## Core Pages
+
+- [Home](https://aibasecamp.tv/)
+- [The problem](https://aibasecamp.tv/#problem)
+- [How it works](https://aibasecamp.tv/#how)
+- [Why it works](https://aibasecamp.tv/#why)
+- [Free Starter Kit](https://aibasecamp.tv/#starter-kit)
+- [Watch on YouTube](https://aibasecamp.tv/#watch)
